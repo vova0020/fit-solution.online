@@ -1,0 +1,212 @@
+[23-Oct-2025 09:43:17 UTC] === NEW FORM SUBMISSION ===
+[23-Oct-2025 09:43:17 UTC] Received POST data: Array
+(
+    [_csrf] => YOUR_CSRF_TOKEN_HERE
+    [firstname] => РўРµСЃС‚
+    [lastname] => РІС‹Р°
+    [email] => asd@mail.ru
+    [phone] => +7 (123) 213-12-23
+    [city] => 
+    [company] => 123
+    [consent] => on
+)
+
+[23-Oct-2025 09:43:17 UTC] Form data - Name: РўРµСЃС‚ РІС‹Р°, Email: asd@mail.ru, Phone: +7 (123) 213-12-23
+[23-Oct-2025 09:43:17 UTC] Attempting to connect to SMTP server...
+[23-Oct-2025 09:43:17 UTC] Attempting to send email...
+[23-Oct-2025 09:43:17 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 220 mail-nwsmtp-smtp-production-main-55.sas.yp-c.yandex.net Ok 1761212597-HhUxHkCLAGk0
+
+[23-Oct-2025 09:43:17 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: EHLO fit-solution.online
+
+[23-Oct-2025 09:43:17 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 250-mail-nwsmtp-smtp-production-main-55.sas.yp-c.yandex.net
+250-8BITMIME
+250-PIPELINING
+250-SIZE 53477376
+250-STARTTLS
+250-AUTH LOGIN PLAIN XOAUTH2
+250-DSN
+250 ENHANCEDSTATUSCODES
+
+[23-Oct-2025 09:43:17 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: AUTH LOGIN
+
+[23-Oct-2025 09:43:17 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+[23-Oct-2025 09:43:17 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: [credentials hidden]
+[23-Oct-2025 09:43:17 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+[23-Oct-2025 09:43:17 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: [credentials hidden]
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 235 2.7.0 Authentication successful. 1761212598-HhUxHkCLAGk0
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: MAIL FROM:<info@fit-solution.online>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 250 2.1.0 <info@fit-solution.online> ok 1761212598-HhUxHkCLAGk0-xoMPRw1v
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: RCPT TO:<info@fit-solution.online>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 250 2.1.5 <info@fit-solution.online> recipient ok 1761212598-HhUxHkCLAGk0-xoMPRw1v
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: DATA
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 354 Start mail input, end with <CRLF>.<CRLF>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Date: Thu, 23 Oct 2025 09:43:17 +0000
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: To: info@fit-solution.online
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: From: =?UTF-8?Q?=D1=E0=E9=F2_FIT-Solution?= <info@fit-solution.online>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Reply-To: =?UTF-8?B?0KLQtdGB0YIg0LLRi9Cw?= <asd@mail.ru>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Subject: =?UTF-8?B?ze7i4P8g5+D/4urgIPEg8eDp8uAgZml0LXNvbHV0aW9uLm9ubGluZQ==?=
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Message-ID: <KmQOXf2P5oSzls7e2bh6Wxim9J0EXfAu5JhF11rvGwk@fit-solution.online>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: X-Mailer: PHPMailer 7.0.0 (https://github.com/PHPMailer/PHPMailer)
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: MIME-Version: 1.0
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Content-Type: multipart/alternative;
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:  boundary="b1=_KmQOXf2P5oSzls7e2bh6Wxim9J0EXfAu5JhF11rvGwk"
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: --b1=_KmQOXf2P5oSzls7e2bh6Wxim9J0EXfAu5JhF11rvGwk
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Content-Type: text/plain; charset=UTF-8
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Новая заявка
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Имя: РўРµСЃС‚
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Фамилия: РІС‹Р°
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Email: asd@mail.ru
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Телефон: +7 (123) 213-12-23
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Город: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Компания: 123
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: --b1=_KmQOXf2P5oSzls7e2bh6Wxim9J0EXfAu5JhF11rvGwk
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Content-Type: text/html; charset=UTF-8
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:     <html>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:     <head>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:         <style>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             .container { max-width: 600px; margin: 0 auto; padding: 20px; background: #f9f9f9; }
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             .header { background: #2C3E50; color: white; padding: 20px; text-align: center; }
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             .content { background: white; padding: 30px; margin-top: 20px; border-radius: 8px; }
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             .field { margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px; }
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             .label { font-weight: bold; color: #2C3E50; display: block; margin-bottom: 5px; }
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             .value { color: #555; }
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:         </style>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:     </head>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:     <body>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:         <div class='container'>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             <div class='header'>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 <h2>?? Новая заявка с сайта</h2>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             </div>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             <div class='content'>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 <div class='field'>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='label'>?? Имя:</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='value'>РўРµСЃС‚</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 </div>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 <div class='field'>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='label'>?? Фамилия:</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='value'>РІС‹Р°</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 </div>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 <div class='field'>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='label'>?? Email:</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='value'><a href='mailto:asd@mail.ru'>asd@mail.ru</a></span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 </div>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 <div class='field'>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='label'>?? Телефон:</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='value'>+7 (123) 213-12-23</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 </div>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 <div class='field'>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='label'>?? Компания:</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                     <span class='value'>123</span>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:                 </div>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:             </div>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:         </div>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:     </body>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER:     </html>
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: --b1=_KmQOXf2P5oSzls7e2bh6Wxim9J0EXfAu5JhF11rvGwk--
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: 
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: .
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 250 2.0.0 Ok: queued on mail-nwsmtp-smtp-production-main-55.sas.yp-c.yandex.net 1761212598-HhUxHkCLAGk0-xoMPRw1v
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 1): CLIENT -> SERVER: QUIT
+
+[23-Oct-2025 09:43:18 UTC] SMTP DEBUG (level 2): SERVER -> CLIENT: 221 2.0.0 Closing connecton
+
+[23-Oct-2025 09:43:18 UTC] Email sent successfully!
