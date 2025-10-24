@@ -244,6 +244,28 @@
             box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
         }
 
+        .site-button {
+            all: unset;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto;
+            width: fit-content;
+            text-align: center;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 15px 60px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+        }
+
+        .site-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -481,6 +503,10 @@
         .partner-item:hover {
             border-color: var(--accent-color);
             transform: translateY(-5px);
+        }
+
+        .partner-item[data-partner] {
+            cursor: pointer;
         }
 
         .partner-item h4 {
@@ -1249,5 +1275,11 @@ a.no-underline {
   .modal-content button {
     font-size: 14px;
     padding: 12px;
+  }
+  
+  /* Кнопка сайт */
+  .site-button {
+    padding: 12px 40px;
+    font-size: 14px;
   }
 }

@@ -433,3 +433,56 @@ navMenu.querySelectorAll('a').forEach(link => {
     burger.classList.remove('active');
   });
 });
+
+// ========================
+// Модальные окна партнеров
+// ========================
+const partnerModals = {
+    planplace: { modal: document.getElementById('planplaceModal'), close: document.getElementById('closePlanplaceModal') },
+    imos: { modal: document.getElementById('imosModal'), close: document.getElementById('closeImosModal') },
+    bsgroup: { modal: document.getElementById('bsgroupModal'), close: document.getElementById('closeBsgroupModal') }
+};
+
+// Открытие модальных окон
+Object.keys(partnerModals).forEach(partner => {
+    const card = document.querySelector(`[data-partner="${partner}"]`);
+    if (card) {
+        card.addEventListener('click', () => {
+            partnerModals[partner].modal.classList.add('show');
+            document.querySelector('nav').classList.add('modal-open');
+        });
+    }
+});
+
+// Закрытие модальных окон
+Object.keys(partnerModals).forEach(partner => {
+    const { modal, close } = partnerModals[partner];
+    if (close) {
+        close.addEventListener('click', () => {
+            modal.classList.remove('show');
+            document.querySelector('nav').classList.remove('modal-open');
+        });
+    }
+});
+
+// Закрытие при клике вне модального окна
+window.addEventListener('click', (e) => {
+    Object.values(partnerModals).forEach(({ modal }) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+            document.querySelector('nav').classList.remove('modal-open');
+        }
+    });
+});
+
+// Закрытие по ESC
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        Object.values(partnerModals).forEach(({ modal }) => {
+            if (modal.classList.contains('show')) {
+                modal.classList.remove('show');
+                document.querySelector('nav').classList.remove('modal-open');
+            }
+        });
+    }
+});
