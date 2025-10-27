@@ -511,3 +511,40 @@ function initCookieNotice() {
 
 // Инициализируем уведомление о cookies после загрузки DOM
 document.addEventListener('DOMContentLoaded', initCookieNotice);
+
+// ========================
+// Модальное окно новости
+// ========================
+const newsModal = document.getElementById('newsModal');
+const closeNewsModal = document.getElementById('closeNewsModal');
+
+// Открытие модального окна новости
+document.querySelectorAll('.news-link[data-news="exhibition"]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        newsModal.classList.add('show');
+        document.querySelector('nav').classList.add('modal-open');
+    });
+});
+
+// Закрытие модального окна новости
+closeNewsModal.addEventListener('click', () => {
+    newsModal.classList.remove('show');
+    document.querySelector('nav').classList.remove('modal-open');
+});
+
+// Закрытие при клике вне модального окна
+window.addEventListener('click', (e) => {
+    if (e.target === newsModal) {
+        newsModal.classList.remove('show');
+        document.querySelector('nav').classList.remove('modal-open');
+    }
+});
+
+// Закрытие по ESC
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && newsModal.classList.contains('show')) {
+        newsModal.classList.remove('show');
+        document.querySelector('nav').classList.remove('modal-open');
+    }
+});

@@ -68,7 +68,7 @@
             <li><a href="#product">Продукт FIT-MES</a></li>
             <li><a href="#services">Услуги</a></li>
             <li><a href="#company">Компания</a></li>
-            <!-- <li><a href="#projects">Проекты</a></li> -->
+            <li><a href="#news">Новости</a></li>
             <li><a href="#partners">Партнёры</a></li>
             <li><a href="#contacts">Контакты</a></li>
         </ul>
@@ -82,25 +82,39 @@
           
         </div>       
     </section>
+    
+    <!-- Carousel Section -->
     <section class="carousel-section">
         <div class="carousel">
             <button class="carousel-btn prev">&#10094;</button>
             <div class="carousel-track">
-                <!-- <div class="carousel-item">
-                    <img src="" alt="Фото 1">
-                </div> -->
                 <div class="carousel-item">
                     <video src="carousel/Promo.mp4" controls muted></video>
                 </div>
-                <!-- <div class="carousel-item">
-                    <img src="" alt="Фото 2">
-                </div> -->
             </div>
             <button class="carousel-btn next">&#10095;</button>
             <div class="carousel-dots">
                 <span class="dot active"></span>
-                <!-- <span class="dot"></span>
-                <span class="dot"></span> -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- News Section -->
+    <section id="news" class="fade-in">
+        <div class="container">
+            <h2 class="section-title">НОВОСТИ И ОБНОВЛЕНИЯ</h2>
+            <div class="news-grid">
+                <article class="news-card featured">
+                    <div class="news-image">
+                        <img src="images/baner/baner.jpg" alt="Выставка Мебель-2025">
+                        <div class="news-date">24 ноя 2025</div>
+                    </div>
+                    <div class="news-content">
+                        <h3>Выставка «Мебель-2025» - встречаемся на нашем стенде!</h3>
+                        <p>Ровно через 1 месяц стартует выставка «Мебель-2025»👍🏻, которая будет проходить с 24 по 27 ноября в КрокусЭкспо в Москве🇷🇺</p>
+                        <a href="#" class="news-link" data-news="exhibition">Читать далее</a>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -587,6 +601,16 @@
                     <button class="site-button" onclick="window.open('https://altendorf-rus.ru', '_blank')">Сайт</button>
                 </div>
             </div>
+
+    <!-- Модальное окно новости -->
+    <div id="newsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeNewsModal">&times;</span>
+            <h2>Выставка «Мебель-2025»</h2>
+            <p>Ровно через 1 месяц стартует выставка «Мебель-2025»👍🏻, которая будет проходить с 24 по 27 ноября в КрокусЭкспо в Москве</p>
+            <p>Приглашаем вас посетить наш стенд 15С1286, где вы сможете посмотреть работу системы FIT-MES в режиме реального времени✅, а так же получить ответы на все интересующие вас вопросы🤝</p>
+        </div>
+    </div>
 
     <!-- Cookie Notice -->
     <div id="cookieNotice" class="cookie-notice">
