@@ -427,8 +427,7 @@
                      <div class="partner-name">НОЙНЕР</div>
                 </div>
                 </a>
-                <a href="https://altendorf-rus.ru" target="_blank" rel="noopener noreferrer" class="no-underline">
-                <div class="partner-item">
+                <div class="partner-item" data-partner="altendorf">
                     <div class="logo-wrap">  
                     <img src="images/Partners/altendorf cc.png" class="logo-non-standard" alt="Altendorf Competence Center">
                     </div>
@@ -529,7 +528,7 @@
                             <span class="consent-box" aria-hidden="true"></span>
                             <span class="consent-text">
                                 Я даю согласие на обработку моих персональных данных в соответствии с
-                                <a href="/privacy-policy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a>.
+                                <a href="privacy-policy.html" target="_blank" rel="noopener noreferrer">Политикой конфиденциальности</a>.
                             </span>
                     </label>
                     <div id="consentError" class="error"></div>
@@ -579,6 +578,23 @@
                     <button class="site-button" onclick="window.open('https://bsgroupmachines.ru', '_blank')">Сайт</button>
                 </div>
             </div>
+       <!-- Модальное окно Altendorf Competence Center -->
+            <div id="altendorfModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" id="closeAltendorfModal">&times;</span>
+                    <h2>Altendorf Competence Center</h2>
+                    <p>Altendorf Competence Center - поставщик оборудования Altendorf и Hebrock для столярных мастерских, мебельных и деревообрабатывающих производств. Запчасти. Техническое обслуживание. Ремонт.</p>
+                    <button class="site-button" onclick="window.open('https://altendorf-rus.ru', '_blank')">Сайт</button>
+                </div>
+            </div>
+
+    <!-- Cookie Notice -->
+    <div id="cookieNotice" class="cookie-notice">
+        <div class="cookie-content">
+            <p>Мы используем cookies для улучшения работы сайта и аналитики. Продолжая использовать сайт, вы соглашаетесь с <a href="privacy-policy.html" target="_blank">Политикой конфиденциальности</a>.</p>
+            <button id="acceptCookies" class="cookie-accept">Принять</button>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
    </body>

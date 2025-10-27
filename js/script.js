@@ -440,7 +440,8 @@ navMenu.querySelectorAll('a').forEach(link => {
 const partnerModals = {
     planplace: { modal: document.getElementById('planplaceModal'), close: document.getElementById('closePlanplaceModal') },
     imos: { modal: document.getElementById('imosModal'), close: document.getElementById('closeImosModal') },
-    bsgroup: { modal: document.getElementById('bsgroupModal'), close: document.getElementById('closeBsgroupModal') }
+    bsgroup: { modal: document.getElementById('bsgroupModal'), close: document.getElementById('closeBsgroupModal') },
+    altendorf: { modal: document.getElementById('altendorfModal'), close: document.getElementById('closeAltendorfModal') }
 };
 
 // Открытие модальных окон
@@ -486,3 +487,27 @@ window.addEventListener('keydown', (e) => {
         });
     }
 });
+
+// ========================
+// Cookie Notice
+// ========================
+function initCookieNotice() {
+    const cookieNotice = document.getElementById('cookieNotice');
+    const acceptBtn = document.getElementById('acceptCookies');
+    
+    // Проверяем, принял ли пользователь cookies
+    if (!localStorage.getItem('cookiesAccepted')) {
+        setTimeout(() => {
+            cookieNotice.classList.add('show');
+        }, 1000);
+    }
+    
+    // Обработчик принятия cookies
+    acceptBtn.addEventListener('click', () => {
+        localStorage.setItem('cookiesAccepted', 'true');
+        cookieNotice.classList.remove('show');
+    });
+}
+
+// Инициализируем уведомление о cookies после загрузки DOM
+document.addEventListener('DOMContentLoaded', initCookieNotice);
