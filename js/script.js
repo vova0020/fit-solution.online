@@ -515,36 +515,49 @@ document.addEventListener('DOMContentLoaded', initCookieNotice);
 // ========================
 // Модальное окно новости
 // ========================
-const newsModal = document.getElementById('newsModal');
-const closeNewsModal = document.getElementById('closeNewsModal');
-
-// Открытие модального окна новости
-document.querySelectorAll('.news-link[data-news="exhibition"]').forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        newsModal.classList.add('show');
-        document.querySelector('nav').classList.add('modal-open');
+function initNewsModal() {
+    var newsModal = document.getElementById('newsModal');
+    var closeNewsModal = document.getElementById('closeNewsModal');
+    var nav = document.querySelector('nav');
+    
+    if (!newsModal || !closeNewsModal) return;
+    
+    // Открытие модального окна новости
+    var newsLinks = document.querySelectorAll('.news-link[data-news="exhibition"]');
+    for (var i = 0; i < newsLinks.length; i++) {
+        newsLinks[i].addEventListener('click', function(e) {
+            e.preventDefault();
+            newsModal.classList.add('show');
+            if (nav) nav.classList.add('modal-open');
+        });
+    }
+    
+    // Закрытие модального окна новости
+    closeNewsModal.addEventListener('click', function() {
+        newsModal.classList.remove('show');
+        if (nav) nav.classList.remove('modal-open');
     });
-});
+    
+    // Закрытие при клике вне модального окна
+    window.addEventListener('click', function(e) {
+        if (e.target === newsModal) {
+            newsModal.classList.remove('show');
+            if (nav) nav.classList.remove('modal-open');
+        }
+    });
+    
+    // Закрытие по ESC
+    window.addEventListener('keydown', function(e) {
+        if ((e.key === 'Escape' || e.keyCode === 27) && newsModal.classList.contains('show')) {
+            newsModal.classList.remove('show');
+            if (nav) nav.classList.remove('modal-open');
+        }
+    });
+}
 
-// Закрытие модального окна новости
-closeNewsModal.addEventListener('click', () => {
-    newsModal.classList.remove('show');
-    document.querySelector('nav').classList.remove('modal-open');
-});
-
-// Закрытие при клике вне модального окна
-window.addEventListener('click', (e) => {
-    if (e.target === newsModal) {
-        newsModal.classList.remove('show');
-        document.querySelector('nav').classList.remove('modal-open');
-    }
-});
-
-// Закрытие по ESC
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && newsModal.classList.contains('show')) {
-        newsModal.classList.remove('show');
-        document.querySelector('nav').classList.remove('modal-open');
-    }
-});
+// Инициализация после загрузки DOM
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNewsModal);
+} else {
+    initNewsModal();
+}
