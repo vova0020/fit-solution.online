@@ -441,7 +441,9 @@ const partnerModals = {
     planplace: { modal: document.getElementById('planplaceModal'), close: document.getElementById('closePlanplaceModal') },
     imos: { modal: document.getElementById('imosModal'), close: document.getElementById('closeImosModal') },
     bsgroup: { modal: document.getElementById('bsgroupModal'), close: document.getElementById('closeBsgroupModal') },
-    altendorf: { modal: document.getElementById('altendorfModal'), close: document.getElementById('closeAltendorfModal') }
+    altendorf: { modal: document.getElementById('altendorfModal'), close: document.getElementById('closeAltendorfModal') },
+    NOINER: { modal: document.getElementById('NOINERModal'), close: document.getElementById('closeNOINERModal') },
+    yta: { modal: document.getElementById('ytaModal'), close: document.getElementById('closeYtaModal') }
 };
 
 // Открытие модальных окон
