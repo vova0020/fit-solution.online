@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Технические работы | FIT-MES</title>
+    <link rel="icon" href="/favicon.ico?v=2" />
+    <style>
+        @import url(https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap);
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2C3E50;
+            --secondary-color: #34495E;
+            --accent-color: #3498DB;
+            --light-accent: #E8F4FD;
+            --text-light: #7F8C8D;
+            --text-dark: #2C3E50;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --gradient: linear-gradient(135deg, #2C3E50 0%, #34495E 100%);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--gradient);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .maintenance-container {
+            text-align: center;
+            color: var(--white);
+            max-width: 600px;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .logo img {
+            height: 80px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .maintenance-icon {
+            font-size: 4rem;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+
+        .maintenance-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .maintenance-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .maintenance-message {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 3px;
+            animation: progress 3s ease-in-out infinite;
+        }
+
+        .contact-info {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            opacity: 0.8;
+        }
+
+        /* Анимированный фон */
+        .background-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        /* Анимации */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
+            50% {
+                width: 70%;
+            }
+            100% {
+                width: 100%;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .maintenance-title {
+                font-size: 2rem;
+            }
+            
+            .maintenance-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .maintenance-icon {
+                font-size: 3rem;
+            }
+            
+            .logo img {
+                height: 60px;
+            }
+            
+            .maintenance-container {
+                padding: 30px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .maintenance-title {
+                font-size: 1.8rem;
+            }
+            
+            .maintenance-subtitle {
+                font-size: 1rem;
+            }
+            
+            .maintenance-message {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="maintenance-container">
+        <div class="logo">
+            <img src="images/LOGO_FIT-SOL.png" alt="FIT-MES Logo">
+        </div>
+        
+        <div class="maintenance-icon">🔧</div>
+        
+        <h1 class="maintenance-title">ТЕХНИЧЕСКИЕ РАБОТЫ</h1>
+        
+        <p class="maintenance-subtitle">Мы улучшаем наш сайт для вас</p>
+        
+        <div class="maintenance-message">
+            В настоящее время проводятся плановые технические работы по обновлению системы.<br>
+            Сайт временно недоступен. Приносим извинения за неудобства.<br><br>
+            <strong>Ожидаемое время завершения работ: в течение 30 минут</strong>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        
+        <div class="contact-info">
+            По вопросам обращайтесь:<br>
+            📞 <a href="tel:+79850640082">+7 (985) 064-00-82</a><br>
+            ✉️ <a href="mailto:info@fit-solution.online">info@fit-solution.online</a>
+        </div>
+    </div>
+</body>
+</html>

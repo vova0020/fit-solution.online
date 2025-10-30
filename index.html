@@ -13,10 +13,16 @@
         frame-src https:;
         upgrade-insecure-requests;
     ">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="Бюджетная MES для мебельного производства: быстрое внедрение, контроль процессов онлайн и рост эффективности на каждом этапе">
+    <meta name="keywords" content="MES, мебельное производство, автоматизация, управление производством">
+    <meta name="author" content="FIT-SOLUTION">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2C3E50">
+    <meta name="format-detection" content="telephone=no">
     <title>FIT-MES | Система управления производственными процессами</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="mobile-enhancements.css">
     <link rel="icon" href="/favicon.ico?v=2" />
     <link rel="shortcut icon" href="/favicon.ico?v=2" />
     
@@ -61,7 +67,7 @@
     </header>
 
     <!-- Navigation -->
-    <nav>       
+    <nav role="navigation" aria-label="Основная навигация">       
         <ul>
             <li><a href="#news">Новости</a></li>
             <li><a href="#what-mes">Что такое MES</a></li>
@@ -75,7 +81,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero">
+    <section class="hero" role="banner">
         <div class="hero-content">
             <h1>СОВРЕМЕННАЯ СИСТЕМА УПРАВЛЕНИЯ ПРОИЗВОДСТВЕННЫМИ ПРОЦЕССАМИ</h1>
             <p class="hero-subtitle">Для мебельной и деревообрабатывающей индустрии</p>
@@ -104,17 +110,7 @@
         <div class="container">
             <h2 class="section-title">НОВОСТИ И ОБНОВЛЕНИЯ</h2>
             <div class="news-grid">
-                <article class="news-card featured">
-                    <div class="news-image">
-                        <img src="images/baner/baner.jpg" alt="Выставка Мебель-2025">
-                        <div class="news-date">24 ноя 2025</div>
-                    </div>
-                    <div class="news-content">
-                        <h3>Выставка «Мебель-2025» - встречаемся на нашем стенде!</h3>
-                        <p>Ровно через 1 месяц стартует выставка «Мебель-2025»👍🏻, которая будет проходить с 24 по 27 ноября в КрокусЭкспо в Москве</p>
-                        <a href="#" class="news-link" data-news="exhibition">Читать далее</a>
-                    </div>
-                </article>
+                <!-- Новости загружаются динамически -->
             </div>
         </div>
     </section>
@@ -407,54 +403,7 @@
         <div class="container">
             <h2 class="section-title">ПАРТНЁРЫ</h2>
             <div class="partners-grid">
-                <div class="partner-item" data-partner="planplace">
-                    <div class="logo-wrap">                    
-                    <img src="images/Partners/plan place.png" class="logo-standard" alt="PlanPlace">
-                    </div>
-                    <div class="partner-name">PlanPlace</div>                   
-                </div>
-                <div class="partner-item" data-partner="imos">
-                    <div class="logo-wrap">  
-                    <img src="images/Partners/imos.jpg" class="logo-standard" alt="imos">
-                    </div>
-                    <div class="partner-name">imos AG</div> 
-                </div>
-                <div class="partner-item" data-partner="bsgroup">
-                    <div class="logo-wrap">            
-                    <img src="images/Partners/biesse.jpg" class="logo-standard" alt="BS Group Machines">
-                    </div>
-                    <div class="partner-name">BS Group Machines</div> 
-                </div>
-                <a href="https://mechanica-robotics.ru/" target="_blank" rel="noopener noreferrer" class="no-underline">
-                <div class="partner-item">
-                    <div class="logo-wrap">                      
-                    <img src="images/Partners/mechanica_robotics.jpg" class="logo-non-standard" alt="Mechanika_robotics">
-                    </div>
-                    <div class="partner-name">Mechanika</div>                    
-                </div>
-                </a>
-                <!-- <a href="https://noiner.ru" target="_blank" rel="noopener noreferrer" class="no-underline"> -->
-                <div class="partner-item" data-partner="NOINER">
-                    <div class="logo-wrap">  
-                     <img src="images/Partners/noiner.jpg" class="logo-standard" alt="NOINER">
-                     </div>
-                     <div class="partner-name">НОЙНЕР</div>
-                </div>
-                
-                <div class="partner-item" data-partner="altendorf">
-                    <div class="logo-wrap">  
-                    <img src="images/Partners/altendorf cc.png" class="logo-non-standard" alt="Altendorf Competence Center">
-                    </div>
-                    <div class="partner-name">Altendorf Competence Center</div>
-                </div>
-
-                <div class="partner-item" data-partner="yta">
-                    <div class="logo-wrap">  
-                    <img src="images/Partners/YTA-logo-ru-RGB.png" class="logo-non-standard" alt="ЮТА">
-                    </div>
-                    <div class="partner-name">ЮТА</div>
-                </div>
-                 
+                <!-- Партнеры загружаются динамически -->
             </div>
         </div>
     </section>
@@ -499,7 +448,7 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <p>&copy; 2025 FIT-SOLUTION. Все права защищены.</p>
         </div>
@@ -563,79 +512,14 @@
                 </div>
             </div>
        <!-- Image lightbox -->
-            <div id="imageModal" class="image-modal" aria-hidden="true" role="dialog">
+            <div id="imageModal" class="image-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
                 <div class="image-modal-content" role="document">
-                    <button class="image-modal-close" aria-label="Закрыть">&times;</button>
-                    <img id="modalImg" class="modal-img" src="" alt="">
+                    <button class="image-modal-close" aria-label="Закрыть модальное окно">&times;</button>
+                    <img id="modalImg" class="modal-img" src="" alt="" loading="lazy">
                 </div>
             </div>
 
-       <!-- Модальное окно PlanPlace -->
-            <div id="planplaceModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="closePlanplaceModal">&times;</span>
-                    <h2>PlanPlace</h2>
-                    <p>Ведущий российский мебельный конфигуратор с автоматическим расчетом цен, входящий в реестр Отечественного ПО. Решение представляет собой полноценную экосистему: оно не только увеличивает конверсию, но и полностью автоматизирует рабочий процесс от формирования проекта клиента и до его передачи в производство.</p>
-                    <button class="site-button" onclick="window.open('https://planplace.online', '_blank')">Сайт</button>
-                </div>
-            </div>
-
-       <!-- Модальное окно IMOS -->
-            <div id="imosModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="closeImosModal">&times;</span>
-                    <h2>IMOS</h2>
-                    <p>Ведущая мировая отраслевая система для проектирования мебели и интерьеров с полностью автоматическим генерированием управляющих программ любой сложности. Благодаря использованию открытых баз данных, прекрасно интегрируется с любыми управленческими и учетными системами предприятия.</p>
-                    <button class="site-button" onclick="window.open('https://www.imos3d.com/en', '_blank')">Сайт</button>
-                </div>
-            </div>
-
-       <!-- Модальное окно BS Group Machines -->
-            <div id="bsgroupModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="closeBsgroupModal">&times;</span>
-                    <h2>BS Group Machines</h2>
-                    <p>Ведущий поставщик европейского оборудования и технологий на российский мебельный рынок. Инжиниринг, подбор и поставка основного и вспомогательного оборудования, монтаж, поставка запасных частей, сервисное обслуживание.</p>
-                    <button class="site-button" onclick="window.open('https://bsgroupmachines.ru', '_blank')">Сайт</button>
-                </div>
-            </div>
-       <!-- Модальное окно Altendorf Competence Center -->
-            <div id="altendorfModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="closeAltendorfModal">&times;</span>
-                    <h2>Altendorf Competence Center</h2>
-                    <p>Altendorf Competence Center - поставщик оборудования Altendorf и Hebrock для столярных мастерских, мебельных и деревообрабатывающих производств. Запчасти. Техническое обслуживание. Ремонт.</p>
-                    <button class="site-button" onclick="window.open('https://altendorf-rus.ru', '_blank')">Сайт</button>
-                </div>
-            </div>
-       <!-- Модальное окно NOINER  -->
-            <div id="NOINERModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="closeNOINERModal">&times;</span>
-                    <h2>НОЙНЕР</h2>
-                    <p>Стратегический партнер в развитии вашего бизнеса, специализирующийся на комплексном оснащении промышленных предприятий. Мы предлагаем промышленные станки для мебельного, дверного производства и деревообработки, оригинальные запчасти и комплектующие ведущих мировых брендов со склада в Москве, аспирационные системы надёжные и доступные, режущий инструмент для станков с ЧПУ проверенного качества.</p>
-                    <button class="site-button" onclick="window.open('https://noiner.ru', '_blank')">Сайт</button>
-                </div>
-            </div>
-       <!-- Модальное окно NOINER  -->
-            <div id="ytaModal" class="modal">
-                <div class="modal-content">
-                    <span class="close" id="closeYtaModal">&times;</span>
-                    <h2>ЮТА</h2>
-                    <p>Ведущий поставщик оборудования, инструмента и комплектующих для обработки стекла, камня, древесины, алюминиевых конструкций, ПВХ профилей на территории России и стран СНГ. Компания не просто поставляет оборудование — она создает полноценные производственные решения под ключ, обеспечивая партнеров технологиями, сервисом и экспертной поддержкой.</p>
-                    <button class="site-button" onclick="window.open('https://yta.ru', '_blank')">Сайт</button>
-                </div>
-            </div>
-
-    <!-- Модальное окно новости -->
-    <div id="newsModal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeNewsModal">&times;</span>
-            <h2>Выставка «Мебель-2025»</h2>
-            <p>Ровно через 1 месяц стартует выставка «Мебель-2025»👍🏻, которая будет проходить с 24 по 27 ноября в КрокусЭкспо в Москве</p>
-            <p>Приглашаем вас посетить наш стенд 15B220, зал 15, павильон 3, где вы сможете посмотреть работу системы FIT-MES в режиме реального времени✅, а так же получить ответы на все интересующие вас вопросы🤝</p>
-        </div>
-    </div>
+    <!-- Модальные окна создаются динамически -->
 
     <!-- Cookie Notice -->
     <div id="cookieNotice" class="cookie-notice">

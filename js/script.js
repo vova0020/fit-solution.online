@@ -1,6 +1,215 @@
 // console.log('script.js загружен 001', new Date().toISOString());
 
 // ========================
+// Dynamic Content Loading
+// ========================
+class ContentLoader {
+    constructor() {
+        this.loadContent();
+    }
+
+    async loadContent() {
+        try {
+            const response = await fetch('/api/content');
+            const data = await response.json();
+            
+            this.renderNews(data.news || []);
+            this.renderPartners(data.partners || []);
+        } catch (error) {
+            console.error('Ошибка загрузки контента:', error);
+            this.showError();
+        }
+    }
+
+    renderNews(news) {
+        const newsContainer = document.querySelector('.news-grid');
+        if (!newsContainer) return;
+
+        if (news.length === 0) {
+            newsContainer.innerHTML = '<p style="text-align: center; color: var(--text-light);">Новостей пока нет</p>';
+            return;
+        }
+
+        newsContainer.innerHTML = news.map(item => {
+            const date = new Date(item.eventDate || item.createdAt).toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'short',
+                year: 'numeric'
+            });
+
+            return `
+                <article class="news-card featured">
+                    <div class="news-image">
+                        ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${this.escapeHtml(item.title)}">` : ''}
+                        <div class="news-date">${date}</div>
+                    </div>
+                    <div class="news-content">
+                        <h3>${this.escapeHtml(item.title)}</h3>
+                        <p>${this.escapeHtml(item.text)}</p>
+                        <a href="#" class="news-link" data-news-id="${item.id}">Читать далее</a>
+                    </div>
+                </article>
+            `;
+        }).join('');
+
+        // Привязываем обработчики для модальных окон новостей
+        this.bindNewsModals(news);
+    }
+
+    renderPartners(partners) {
+        const partnersContainer = document.querySelector('.partners-grid');
+        if (!partnersContainer) return;
+
+        if (partners.length === 0) {
+            partnersContainer.innerHTML = '<p style="text-align: center; color: var(--text-light);">Партнеров пока нет</p>';
+            return;
+        }
+
+        partnersContainer.innerHTML = partners.map(partner => {
+            const partnerElement = `
+                <div class="partner-item" ${partner.isClickable ? `data-partner="${partner.id}"` : ''}>
+                    <div class="logo-wrap">
+                        <img src="${partner.logoUrl}" class="${partner.logoClass}" alt="${this.escapeHtml(partner.name)}">
+                    </div>
+                    <div class="partner-name">${this.escapeHtml(partner.name)}</div>
+                </div>
+            `;
+
+            // Если партнер не кликабельный и есть внешняя ссылка, оборачиваем в ссылку
+            if (!partner.isClickable && partner.websiteUrl) {
+                return `<a href="${partner.websiteUrl}" target="_blank" rel="noopener noreferrer" class="no-underline">${partnerElement}</a>`;
+            }
+
+            return partnerElement;
+        }).join('');
+
+        // Привязываем обработчики для модальных окон партнеров
+        this.bindPartnerModals(partners);
+    }
+
+    bindNewsModals(news) {
+        // Создаем модальные окна для новостей
+        news.forEach(item => {
+            const existingModal = document.getElementById(`newsModal_${item.id}`);
+            if (existingModal) {
+                existingModal.remove();
+            }
+
+            const modal = document.createElement('div');
+            modal.id = `newsModal_${item.id}`;
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" id="closeNewsModal_${item.id}">&times;</span>
+                    <h2>${this.escapeHtml(item.title)}</h2>
+                    <p>${this.escapeHtml(item.text).replace(/\n/g, '<br>')}</p>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Привязываем обработчики
+            const newsLink = document.querySelector(`[data-news-id="${item.id}"]`);
+            const closeBtn = document.getElementById(`closeNewsModal_${item.id}`);
+            const nav = document.querySelector('nav');
+
+            if (newsLink) {
+                newsLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    modal.classList.add('show');
+                    if (nav) nav.classList.add('modal-open');
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('show');
+                    if (nav) nav.classList.remove('modal-open');
+                });
+            }
+
+            // Закрытие при клике вне модального окна
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                    if (nav) nav.classList.remove('modal-open');
+                }
+            });
+        });
+    }
+
+    bindPartnerModals(partners) {
+        // Удаляем старые модальные окна партнеров
+        document.querySelectorAll('[id^="partnerModal_"]').forEach(modal => modal.remove());
+
+        partners.forEach(partner => {
+            if (!partner.isClickable) return;
+
+            const modal = document.createElement('div');
+            modal.id = `partnerModal_${partner.id}`;
+            modal.className = 'modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <span class="close" id="closePartnerModal_${partner.id}">&times;</span>
+                    <h2>${this.escapeHtml(partner.name)}</h2>
+                    <p>${this.escapeHtml(partner.description)}</p>
+                    ${partner.websiteUrl ? `<button class="site-button" onclick="window.open('${partner.websiteUrl}', '_blank')">Сайт</button>` : ''}
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            // Привязываем обработчики
+            const partnerCard = document.querySelector(`[data-partner="${partner.id}"]`);
+            const closeBtn = document.getElementById(`closePartnerModal_${partner.id}`);
+            const nav = document.querySelector('nav');
+
+            if (partnerCard) {
+                partnerCard.addEventListener('click', () => {
+                    modal.classList.add('show');
+                    if (nav) nav.classList.add('modal-open');
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    modal.classList.remove('show');
+                    if (nav) nav.classList.remove('modal-open');
+                });
+            }
+
+            // Закрытие при клике вне модального окна
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('show');
+                    if (nav) nav.classList.remove('modal-open');
+                }
+            });
+        });
+    }
+
+    showError() {
+        const newsContainer = document.querySelector('.news-grid');
+        const partnersContainer = document.querySelector('.partners-grid');
+        
+        if (newsContainer) {
+            newsContainer.innerHTML = '<p style="text-align: center; color: var(--danger-color);">Не удалось загрузить новости</p>';
+        }
+        
+        if (partnersContainer) {
+            partnersContainer.innerHTML = '<p style="text-align: center; color: var(--danger-color);">Не удалось загрузить партнеров</p>';
+        }
+    }
+
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+}
+
+// Инициализируем загрузчик контента
+const contentLoader = new ContentLoader();
+
+// ========================
 // Loading screen
 // ========================
 window.addEventListener('load', () => {
@@ -9,15 +218,33 @@ window.addEventListener('load', () => {
 });
 
 // ========================
-// Scroll animations
+// Scroll animations с fallback
 // ========================
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+} else {
+    // Fallback для старых браузеров
+    function checkVisibility() {
+        document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
+            const rect = el.getBoundingClientRect();
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+            
+            if (rect.top <= windowHeight - 50) {
+                el.classList.add('visible');
+            }
+        });
+    }
+    
+    window.addEventListener('scroll', checkVisibility);
+    window.addEventListener('resize', checkVisibility);
+    checkVisibility(); // Проверяем при загрузке
+}
 
 // ========================
 // Header & nav scroll
@@ -32,22 +259,65 @@ window.addEventListener('scroll', () => {
 });
 
 // ========================
-// Smooth nav scrolling
+// Smooth nav scrolling с fallback для старых браузеров
 // ========================
 document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', e => {
         e.preventDefault();
         const target = document.querySelector(anchor.getAttribute('href'));
-        if (target) window.scrollTo({ top: target.offsetTop - 120, behavior: 'smooth' });
+        if (target) {
+            const targetTop = target.offsetTop - 120;
+            
+            // Проверяем поддержку smooth scrolling
+            if ('scrollBehavior' in document.documentElement.style) {
+                window.scrollTo({ top: targetTop, behavior: 'smooth' });
+            } else {
+                // Fallback для старых браузеров
+                const startTop = window.pageYOffset;
+                const distance = targetTop - startTop;
+                const duration = 800;
+                let start = null;
+                
+                function step(timestamp) {
+                    if (!start) start = timestamp;
+                    const progress = Math.min((timestamp - start) / duration, 1);
+                    const ease = progress * (2 - progress); // easeOutQuad
+                    window.scrollTo(0, startTop + distance * ease);
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    }
+                }
+                
+                requestAnimationFrame(step);
+            }
+        }
     });
 });
 
 // ========================
-// Card hover
+// Card hover с поддержкой touch
 // ========================
 document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('mouseenter', () => card.style.transform = 'translateY(-10px) scale(1.02)');
-    card.addEventListener('mouseleave', () => card.style.transform = 'translateY(0) scale(1)');
+    const applyHover = () => {
+        card.style.transform = 'translateY(-10px) scale(1.02)';
+        card.style.webkitTransform = 'translateY(-10px) scale(1.02)';
+        card.style.msTransform = 'translateY(-10px) scale(1.02)';
+    };
+    const removeHover = () => {
+        card.style.transform = 'translateY(0) scale(1)';
+        card.style.webkitTransform = 'translateY(0) scale(1)';
+        card.style.msTransform = 'translateY(0) scale(1)';
+    };
+    
+    card.addEventListener('mouseenter', applyHover);
+    card.addEventListener('mouseleave', removeHover);
+    
+    // Touch support для мобильных устройств
+    if ('ontouchstart' in window) {
+        card.addEventListener('touchstart', applyHover, { passive: true });
+        card.addEventListener('touchend', removeHover, { passive: true });
+    }
 });
 
 // ========================
@@ -372,7 +642,7 @@ updateCarousel();
 startAutoSlide();
 
 
-// Увеличение изображений по клику
+// Увеличение изображений по клику с улучшенной доступностью
 const imageModal = document.getElementById('imageModal');
 const modalImg = document.getElementById('modalImg');
 const modalClose = document.querySelector('.image-modal-close');
@@ -380,11 +650,25 @@ const modalClose = document.querySelector('.image-modal-close');
 // открытие: клики по миниатюрам
 document.querySelectorAll('.image-item img').forEach(img => {
   img.style.cursor = 'zoom-in';
-  img.addEventListener('click', () => {
+  img.setAttribute('tabindex', '0');
+  img.setAttribute('role', 'button');
+  img.setAttribute('aria-label', 'Увеличить изображение');
+  
+  const openModal = () => {
     modalImg.src = img.src;
     modalImg.alt = img.alt || '';
     imageModal.classList.add('show');
-    document.body.style.overflow = 'hidden'; // запрет скролла за модалкой
+    imageModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    modalClose.focus(); // Фокус на кнопку закрытия
+  };
+  
+  img.addEventListener('click', openModal);
+  img.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openModal();
+    }
   });
 });
 
@@ -403,9 +687,14 @@ window.addEventListener('keydown', (e) => {
 
 function closeImageModal() {
   imageModal.classList.remove('show');
+  imageModal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
   modalImg.src = '';
   modalImg.alt = '';
+  
+  // Возвращаем фокус на изображение, которое открыло модалку
+  const activeImg = document.querySelector('.image-item img[tabindex="0"]:focus');
+  if (activeImg) activeImg.focus();
 }
 
 
@@ -435,60 +724,8 @@ navMenu.querySelectorAll('a').forEach(link => {
 });
 
 // ========================
-// Модальные окна партнеров
+// Модальные окна партнеров (создаются динамически)
 // ========================
-const partnerModals = {
-    planplace: { modal: document.getElementById('planplaceModal'), close: document.getElementById('closePlanplaceModal') },
-    imos: { modal: document.getElementById('imosModal'), close: document.getElementById('closeImosModal') },
-    bsgroup: { modal: document.getElementById('bsgroupModal'), close: document.getElementById('closeBsgroupModal') },
-    altendorf: { modal: document.getElementById('altendorfModal'), close: document.getElementById('closeAltendorfModal') },
-    NOINER: { modal: document.getElementById('NOINERModal'), close: document.getElementById('closeNOINERModal') },
-    yta: { modal: document.getElementById('ytaModal'), close: document.getElementById('closeYtaModal') }
-};
-
-// Открытие модальных окон
-Object.keys(partnerModals).forEach(partner => {
-    const card = document.querySelector(`[data-partner="${partner}"]`);
-    if (card) {
-        card.addEventListener('click', () => {
-            partnerModals[partner].modal.classList.add('show');
-            document.querySelector('nav').classList.add('modal-open');
-        });
-    }
-});
-
-// Закрытие модальных окон
-Object.keys(partnerModals).forEach(partner => {
-    const { modal, close } = partnerModals[partner];
-    if (close) {
-        close.addEventListener('click', () => {
-            modal.classList.remove('show');
-            document.querySelector('nav').classList.remove('modal-open');
-        });
-    }
-});
-
-// Закрытие при клике вне модального окна
-window.addEventListener('click', (e) => {
-    Object.values(partnerModals).forEach(({ modal }) => {
-        if (e.target === modal) {
-            modal.classList.remove('show');
-            document.querySelector('nav').classList.remove('modal-open');
-        }
-    });
-});
-
-// Закрытие по ESC
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        Object.values(partnerModals).forEach(({ modal }) => {
-            if (modal.classList.contains('show')) {
-                modal.classList.remove('show');
-                document.querySelector('nav').classList.remove('modal-open');
-            }
-        });
-    }
-});
 
 // ========================
 // Cookie Notice
@@ -515,51 +752,5 @@ function initCookieNotice() {
 document.addEventListener('DOMContentLoaded', initCookieNotice);
 
 // ========================
-// Модальное окно новости
+// Модальные окна новостей (создаются динамически)
 // ========================
-function initNewsModal() {
-    var newsModal = document.getElementById('newsModal');
-    var closeNewsModal = document.getElementById('closeNewsModal');
-    var nav = document.querySelector('nav');
-    
-    if (!newsModal || !closeNewsModal) return;
-    
-    // Открытие модального окна новости
-    var newsLinks = document.querySelectorAll('.news-link[data-news="exhibition"]');
-    for (var i = 0; i < newsLinks.length; i++) {
-        newsLinks[i].addEventListener('click', function(e) {
-            e.preventDefault();
-            newsModal.classList.add('show');
-            if (nav) nav.classList.add('modal-open');
-        });
-    }
-    
-    // Закрытие модального окна новости
-    closeNewsModal.addEventListener('click', function() {
-        newsModal.classList.remove('show');
-        if (nav) nav.classList.remove('modal-open');
-    });
-    
-    // Закрытие при клике вне модального окна
-    window.addEventListener('click', function(e) {
-        if (e.target === newsModal) {
-            newsModal.classList.remove('show');
-            if (nav) nav.classList.remove('modal-open');
-        }
-    });
-    
-    // Закрытие по ESC
-    window.addEventListener('keydown', function(e) {
-        if ((e.key === 'Escape' || e.keyCode === 27) && newsModal.classList.contains('show')) {
-            newsModal.classList.remove('show');
-            if (nav) nav.classList.remove('modal-open');
-        }
-    });
-}
-
-// Инициализация после загрузки DOM
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNewsModal);
-} else {
-    initNewsModal();
-}

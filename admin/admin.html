@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель FIT-MES</title>
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <!-- Форма входа -->
+    <div id="loginForm" class="login-container">
+        <div class="login-box">
+            <h1>Админ-панель FIT-MES</h1>
+            <form id="authForm">
+                <input type="text" id="username" placeholder="Логин" required>
+                <input type="password" id="password" placeholder="Пароль" required>
+                <button type="submit">Войти</button>
+            </form>
+            <div id="loginError" class="error"></div>
+        </div>
+    </div>
+
+    <!-- Админ-панель -->
+    <div id="adminPanel" class="admin-panel" style="display: none;">
+        <header class="admin-header">
+            <h1>Админ-панель FIT-MES</h1>
+            <button id="logoutBtn" class="logout-btn">Выйти</button>
+        </header>
+
+        <nav class="admin-nav">
+            <button class="nav-btn active" data-section="news">Новости</button>
+            <button class="nav-btn" data-section="partners">Партнеры</button>
+        </nav>
+
+        <!-- Секция новостей -->
+        <section id="newsSection" class="content-section">
+            <div class="section-header">
+                <h2>Управление новостями</h2>
+                <button id="addNewsBtn" class="add-btn">Добавить новость</button>
+            </div>
+
+            <div class="form-container">
+                <form id="newsForm" class="content-form">
+                    <input type="hidden" id="newsId">
+                    <div class="form-group">
+                        <label for="newsTitle">Заголовок:</label>
+                        <input type="text" id="newsTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsText">Текст:</label>
+                        <textarea id="newsText" rows="6" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsDate">Дата новости:</label>
+                        <input type="date" id="newsDate" required>
+                        <small>Укажите дату, когда произошло событие</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsOrder">Порядок отображения:</label>
+                        <input type="number" id="newsOrder" min="1" step="1">
+                        <small>Чем меньше число, тем выше в списке (1 = первая позиция)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="newsImageFile">Загрузить изображение:</label>
+                        <input type="file" id="newsImageFile" accept="image/*">
+                        <small>Или укажите URL:</small>
+                        <input type="text" id="newsImage" placeholder="/images/baner/example.jpg">
+                    </div>
+                    <div class="form-group" id="newsImagePreview" style="display: none;">
+                        <label>Предварительный просмотр:</label>
+                        <img id="newsPreviewImg" src="" alt="Предварительный просмотр" style="max-width: 200px; max-height: 150px; border-radius: 8px;">
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" id="saveNewsBtn">Добавить</button>
+                        <button type="button" id="cancelNewsBtn">Отмена</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="items-list">
+                <h3>Существующие новости</h3>
+                <div id="newsList" class="list-container"></div>
+            </div>
+        </section>
+
+        <!-- Секция партнеров -->
+        <section id="partnersSection" class="content-section" style="display: none;">
+            <div class="section-header">
+                <h2>Управление партнерами</h2>
+                <button id="addPartnerBtn" class="add-btn">Добавить партнера</button>
+            </div>
+
+            <div class="form-container">
+                <form id="partnersForm" class="content-form">
+                    <input type="hidden" id="partnerId">
+                    <div class="form-group">
+                        <label for="partnerName">Название:</label>
+                        <input type="text" id="partnerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerDescription">Описание:</label>
+                        <textarea id="partnerDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerLogoFile">Загрузить логотип:</label>
+                        <input type="file" id="partnerLogoFile" accept="image/*">
+                        <small>Или укажите URL:</small>
+                        <input type="text" id="partnerLogo" placeholder="/images/Partners/example.jpg">
+                    </div>
+                    <div class="form-group" id="partnerLogoPreview" style="display: none;">
+                        <label>Предварительный просмотр:</label>
+                        <img id="partnerPreviewImg" src="" alt="Предварительный просмотр" style="max-width: 150px; max-height: 100px; border-radius: 8px;">
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerLogoClass">Класс логотипа:</label>
+                        <select id="partnerLogoClass">
+                            <option value="logo-standard">Стандартный</option>
+                            <option value="logo-non-standard">Нестандартный</option>
+                        </select>
+                        <small><strong>Стандартный:</strong> логотип занимает 70% ширины контейнера (подходит для большинства логотипов)<br>
+                        <strong>Нестандартный:</strong> логотип занимает 90% ширины контейнера (для очень широких или узких логотипов)</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerWebsite">URL сайта:</label>
+                        <input type="url" id="partnerWebsite" placeholder="https://example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="partnerClickable" checked>
+                            Кликабельный (открывает модальное окно)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerOrder">Порядок отображения:</label>
+                        <input type="number" id="partnerOrder" min="1" step="1">
+                        <small>Чем меньше число, тем выше в списке (1 = первая позиция)</small>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" id="savePartnerBtn">Добавить</button>
+                        <button type="button" id="cancelPartnerBtn">Отмена</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="items-list">
+                <h3>Существующие партнеры</h3>
+                <div id="partnersList" class="list-container"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="../js/admin.js"></script>
+</body>
+</html>

@@ -1,5 +1,30 @@
 @import url(https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap);
 
+/* Полифиллы для старых браузеров */
+@supports not (display: grid) {
+    .cards-grid, .news-grid, .partners-grid, .contact-grid, .features-list, .image-grid {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+    }
+    
+    .cards-grid > *, .news-grid > *, .partners-grid > *, .contact-grid > *, .features-list > *, .image-grid > * {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 1 300px;
+        flex: 0 1 300px;
+        margin: 15px;
+    }
+}
+
         * {
             margin: 0;
             padding: 0;
@@ -21,16 +46,27 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
             background-color: var(--white);
             overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Smooth scrolling */
+        /* Smooth scrolling с поддержкой старых браузеров */
         html {
             scroll-behavior: smooth;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
         }
 
         /* Header */
@@ -226,6 +262,8 @@
             cursor: pointer;
             display: block;
             margin: 20px auto;
+            width: -webkit-fit-content;
+            width: -moz-fit-content;
             width: fit-content;
             text-align: center;
             background: var(--accent-color);
@@ -234,14 +272,33 @@
             border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
             transition: all 0.3s ease;
+            -webkit-animation: fadeInUp 1s ease-out 0.4s both;
             animation: fadeInUp 1s ease-out 0.4s both;
+            -webkit-box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
             box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
         }
 
         .cta-button:hover {
+            -webkit-transform: translateY(-3px);
+            -ms-transform: translateY(-3px);
             transform: translateY(-3px);
+            -webkit-box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
             box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
+        }
+        
+        @media (hover: none) and (pointer: coarse) {
+            .cta-button:hover {
+                -webkit-transform: none;
+                -ms-transform: none;
+                transform: none;
+                -webkit-box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+                box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+            }
         }
 
         .site-button {
@@ -313,9 +370,12 @@
 
         /* Cards */
         .cards-grid {
+            display: -ms-grid;
             display: grid;
+            -ms-grid-columns: (minmax(300px, 1fr))[auto-fit];
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            grid-gap: 30px; /* Fallback для старых браузеров */
             margin-top: 50px;
         }
 
@@ -323,7 +383,10 @@
             background: var(--white);
             border-radius: 15px;
             padding: 40px 30px;
+            -webkit-box-shadow: 0 10px 40px rgba(44, 62, 80, 0.1);
             box-shadow: 0 10px 40px rgba(44, 62, 80, 0.1);
+            -webkit-transition: all 0.3s ease;
+            -o-transition: all 0.3s ease;
             transition: all 0.3s ease;
             border: 1px solid var(--border-color);
             position: relative;
@@ -338,16 +401,27 @@
             width: 100%;
             height: 4px;
             background: var(--accent-color);
+            -webkit-transform: scaleX(0);
+            -ms-transform: scaleX(0);
             transform: scaleX(0);
+            -webkit-transition: -webkit-transform 0.3s ease;
+            transition: -webkit-transform 0.3s ease;
+            -o-transition: transform 0.3s ease;
             transition: transform 0.3s ease;
+            transition: transform 0.3s ease, -webkit-transform 0.3s ease;
         }
 
         .card:hover {
+            -webkit-transform: translateY(-10px);
+            -ms-transform: translateY(-10px);
             transform: translateY(-10px);
+            -webkit-box-shadow: 0 20px 60px rgba(44, 62, 80, 0.15);
             box-shadow: 0 20px 60px rgba(44, 62, 80, 0.15);
         }
 
         .card:hover::before {
+            -webkit-transform: scaleX(1);
+            -ms-transform: scaleX(1);
             transform: scaleX(1);
         }
 
@@ -381,9 +455,12 @@
 
         /* Features List */
         .features-list {
+            display: -ms-grid;
             display: grid;
+            -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+            grid-gap: 20px; /* Fallback для старых браузеров */
             margin: 40px 0;
         }
 
@@ -422,9 +499,12 @@
 
         /* Image Grid */
         .image-grid {
+            display: -ms-grid;
             display: grid;
+            -ms-grid-columns: (minmax(300px, 1fr))[auto-fit];
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+            grid-gap: 20px; /* Fallback для старых браузеров */
             margin: 50px 0;
         }
 
@@ -456,10 +536,15 @@
 
         /* Partners */
         .partners-grid {
+            display: -ms-grid;
             display: grid;
+            -ms-grid-columns: 320px 30px 320px 30px 320px;
             grid-template-columns: repeat(3, 320px);
             gap: 30px;
+            grid-gap: 30px; /* Fallback для старых браузеров */
             margin: 50px 0;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
             justify-content: center;
         }
 
@@ -534,9 +619,12 @@
 
         /* Contact Section */
         .contact-grid {
+            display: -ms-grid;
             display: grid;
+            -ms-grid-columns: (minmax(300px, 1fr))[auto-fit];
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 40px;
+            grid-gap: 40px; /* Fallback для старых браузеров */
             margin: 50px 0;
         }
 
@@ -941,22 +1029,34 @@ nav.modal-open {
 .carousel-btn {
     position: absolute;
     top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     z-index: 10;
     background: rgba(0,0,0,0.5);
     border: none;
     color: #fff;
     font-size: 2rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     width: 50px;
     height: 50px;
     border-radius: 50%;
     cursor: pointer;
+    -webkit-transition: background 0.3s;
+    -o-transition: background 0.3s;
     transition: background 0.3s;
     line-height: 1;
     text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .carousel-btn:hover {
@@ -1023,9 +1123,15 @@ a.no-underline {
 
 /* News Section */
 .news-grid {
-    display: flex;
-    justify-content: center;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (minmax(400px, 1fr))[auto-fit];
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    grid-gap: 30px; /* Fallback для старых браузеров */
     margin: 50px 0;
+    -ms-grid-column-align: center;
+    justify-items: center;
 }
 
 .news-card {
@@ -1130,13 +1236,8 @@ a.no-underline {
 
 @media (max-width: 1024px) {
     .news-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-    }
-    
-    .news-card.featured {
-        grid-column: span 2;
-        grid-row: span 1;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
     }
 }
 
@@ -1144,11 +1245,7 @@ a.no-underline {
     .news-grid {
         grid-template-columns: 1fr;
         gap: 20px;
-    }
-    
-    .news-card.featured {
-        grid-column: span 1;
-        grid-row: span 1;
+        margin: 30px 0;
     }
     
     .news-image {
@@ -1164,6 +1261,14 @@ a.no-underline {
         right: 10px;
         padding: 4px 8px;
         font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin: 20px 0;
     }
 }
 
@@ -1244,8 +1349,10 @@ a.no-underline {
 
     /* Партнеры на планшетах */
     .partners-grid {
+        -ms-grid-columns: 280px 20px 280px;
         grid-template-columns: repeat(2, 280px);
         gap: 20px;
+        grid-gap: 20px;
     }
 
     .partner-item {
@@ -1380,8 +1487,12 @@ a.no-underline {
 
   /* Партнеры на мобильных */
   .partners-grid {
+    -ms-grid-columns: 320px;
     grid-template-columns: 320px;
     gap: 15px;
+    grid-gap: 15px;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
   }
 
@@ -1422,6 +1533,7 @@ a.no-underline {
 
   /* Карточки */
   .cards-grid {
+    -ms-grid-columns: (minmax(250px, 1fr))[auto-fit];
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   }
 

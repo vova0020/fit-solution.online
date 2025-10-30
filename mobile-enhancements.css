@@ -1,0 +1,207 @@
+/* Дополнительные улучшения для мобильных устройств */
+
+/* Улучшения для iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    body {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    input, textarea, button, select {
+        -webkit-user-select: auto;
+    }
+    
+    /* Исправление проблемы с viewport на iOS */
+    @media screen and (max-width: 767px) {
+        body {
+            -webkit-text-size-adjust: none;
+        }
+    }
+}
+
+/* Улучшения для Android */
+@media screen and (-webkit-min-device-pixel-ratio: 1) {
+    select, input, textarea {
+        font-size: 16px; /* Предотвращает зум на Android */
+    }
+}
+
+/* Улучшения для устройств с высокой плотностью пикселей */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Улучшения для устройств с поддержкой hover */
+@media (hover: hover) and (pointer: fine) {
+    .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(44, 62, 80, 0.15);
+    }
+}
+
+/* Отключение hover-эффектов на touch-устройствах */
+@media (hover: none) and (pointer: coarse) {
+    .card:hover {
+        transform: none;
+        box-shadow: 0 10px 40px rgba(44, 62, 80, 0.1);
+    }
+    
+    .cta-button:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+    }
+    
+    nav ul li a:hover {
+        background: none;
+        transform: none;
+    }
+}
+
+/* Улучшения для устройств с малой высотой экрана */
+@media (max-height: 600px) {
+    .hero {
+        padding: 20px 0;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    section {
+        padding: 40px 0;
+    }
+}
+
+/* Улучшения для очень маленьких экранов */
+@media (max-width: 320px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .hero h1 {
+        font-size: 1.3rem;
+    }
+    
+    .partner-item {
+        width: 280px;
+    }
+    
+    .partners-grid {
+        grid-template-columns: 280px;
+    }
+}
+
+/* Улучшения для landscape ориентации на мобильных */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        padding: 10px 0;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+    
+    section {
+        padding: 30px 0;
+    }
+}
+
+/* Улучшения для устройств с поддержкой prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .fade-in {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Улучшения для темной темы */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --white: #1a1a1a;
+        --light-gray: #2a2a2a;
+        --text-dark: #ffffff;
+        --text-light: #cccccc;
+        --border-color: #444444;
+    }
+}
+
+/* Улучшения для высококонтрастного режима */
+@media (prefers-contrast: high) {
+    :root {
+        --primary-color: #000000;
+        --accent-color: #0066cc;
+        --text-dark: #000000;
+        --border-color: #000000;
+    }
+    
+    .card {
+        border: 2px solid var(--border-color);
+    }
+}
+
+/* Улучшения для пользователей с ограниченными возможностями */
+@media (prefers-reduced-transparency: reduce) {
+    .modal {
+        background: rgba(0,0,0,0.9);
+    }
+    
+    .carousel-btn {
+        background: rgba(0,0,0,0.8);
+    }
+}
+
+/* Focus-visible для лучшей доступности */
+.cta-button:focus-visible,
+.carousel-btn:focus-visible,
+nav ul li a:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Улучшения для печати */
+@media print {
+    .carousel-section,
+    .modal,
+    .cookie-notice,
+    nav,
+    .cta-button {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    .hero {
+        background: none;
+        color: black;
+    }
+    
+    .section-title {
+        color: black;
+        page-break-after: avoid;
+    }
+    
+    .card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
