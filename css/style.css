@@ -1640,3 +1640,51 @@ a.no-underline {
         padding: 12px;
     }
 }
+
+/* Дополнительные улучшения для мобильных устройств */
+@supports (-webkit-touch-callout: none) {
+    body {
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .card:hover {
+        transform: none;
+        box-shadow: 0 10px 40px rgba(44, 62, 80, 0.1);
+    }
+    
+    .cta-button:hover {
+        transform: none;
+        box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+    }
+}
+
+@media (max-width: 320px) {
+    .container {
+        padding: 0 10px;
+    }
+    
+    .hero h1 {
+        font-size: 1.3rem;
+    }
+    
+    .partner-item {
+        width: 280px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+.cta-button:focus-visible,
+.carousel-btn:focus-visible,
+nav ul li a:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}

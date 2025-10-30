@@ -1,0 +1,5 @@
+{
+  "adminUser": "admin",
+  "adminPassHash": "$2b$10$hEnniYpIW1Zk9yh8uDXzw.znCc/6TwX1rdAJXJTtF.ejc/5WPXyAC",
+  "sessionSecret": "fit-mes-super-secret-key-2024-change-this-in-production-12345"
+}
