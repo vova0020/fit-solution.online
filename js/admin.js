@@ -8,6 +8,7 @@ class AdminPanel {
     init() {
         this.checkAuth();
         this.bindEvents();
+        this.initPasswordToggle();
     }
 
     async checkAuth() {
@@ -76,6 +77,23 @@ class AdminPanel {
         
         // Обработчики загрузки изображений
         this.bindImageUploadEvents();
+    }
+    
+    initPasswordToggle() {
+        const showPasswordBtn = document.getElementById('showPassword');
+        const passwordInput = document.getElementById('password');
+        
+        if (showPasswordBtn && passwordInput) {
+            showPasswordBtn.addEventListener('click', () => {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    showPasswordBtn.textContent = '🙈';
+                } else {
+                    passwordInput.type = 'password';
+                    showPasswordBtn.textContent = '👁';
+                }
+            });
+        }
     }
     
     bindImageUploadEvents() {

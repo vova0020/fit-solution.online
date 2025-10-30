@@ -13,7 +13,10 @@
             <h1>Админ-панель FIT-MES</h1>
             <form id="authForm">
                 <input type="text" id="username" placeholder="Логин" required>
-                <input type="password" id="password" placeholder="Пароль" required>
+                <div class="password-field">
+                    <input type="password" id="password" placeholder="Пароль" required>
+                    <button type="button" class="show-password" id="showPassword">👁</button>
+                </div>
                 <button type="submit">Войти</button>
             </form>
             <div id="loginError" class="error"></div>
