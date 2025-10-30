@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ-панель FIT-MES</title>
     <link rel="stylesheet" href="../css/admin.css">
 </head>
+
 <body>
     <!-- Форма входа -->
     <div id="loginForm" class="login-container">
@@ -15,7 +17,13 @@
                 <input type="text" id="username" placeholder="Логин" required>
                 <div class="password-field">
                     <input type="password" id="password" placeholder="Пароль" required>
-                    <button type="button" class="show-password" id="showPassword">👁</button>
+                    <button type="button" class="show-password" id="showPassword">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </button>
                 </div>
                 <button type="submit">Войти</button>
             </form>
@@ -71,7 +79,8 @@
                     </div>
                     <div class="form-group" id="newsImagePreview" style="display: none;">
                         <label>Предварительный просмотр:</label>
-                        <img id="newsPreviewImg" src="" alt="Предварительный просмотр" style="max-width: 200px; max-height: 150px; border-radius: 8px;">
+                        <img id="newsPreviewImg" src="" alt="Предварительный просмотр"
+                            style="max-width: 200px; max-height: 150px; border-radius: 8px;">
                     </div>
                     <div class="form-actions">
                         <button type="submit" id="saveNewsBtn">Добавить</button>
@@ -112,7 +121,8 @@
                     </div>
                     <div class="form-group" id="partnerLogoPreview" style="display: none;">
                         <label>Предварительный просмотр:</label>
-                        <img id="partnerPreviewImg" src="" alt="Предварительный просмотр" style="max-width: 150px; max-height: 100px; border-radius: 8px;">
+                        <img id="partnerPreviewImg" src="" alt="Предварительный просмотр"
+                            style="max-width: 150px; max-height: 100px; border-radius: 8px;">
                     </div>
                     <div class="form-group">
                         <label for="partnerLogoClass">Класс логотипа:</label>
@@ -120,8 +130,10 @@
                             <option value="logo-standard">Стандартный</option>
                             <option value="logo-non-standard">Нестандартный</option>
                         </select>
-                        <small><strong>Стандартный:</strong> логотип занимает 70% ширины контейнера (подходит для большинства логотипов)<br>
-                        <strong>Нестандартный:</strong> логотип занимает 90% ширины контейнера (для очень широких или узких логотипов)</small>
+                        <small><strong>Стандартный:</strong> логотип занимает 70% ширины контейнера (подходит для
+                            большинства логотипов)<br>
+                            <strong>Нестандартный:</strong> логотип занимает 90% ширины контейнера (для очень широких
+                            или узких логотипов)</small>
                     </div>
                     <div class="form-group">
                         <label for="partnerWebsite">URL сайта:</label>
@@ -154,4 +166,5 @@
 
     <script src="../js/admin.js"></script>
 </body>
+
 </html>
