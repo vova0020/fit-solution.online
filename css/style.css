@@ -790,6 +790,8 @@
     transform: translateY(-20px);
     opacity: 0;
     transition: all 0.3s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .modal.show .modal-content {
@@ -803,6 +805,9 @@
     font-size: 22px;
     color: var(--primary-color);
     text-align: center;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .close {
@@ -956,6 +961,16 @@ form button:hover {
     font-size: 18px;
     color: var(--success-color);
     padding: 20px 0;
+}
+
+.modal-content p {
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 20px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 nav.modal-open {
