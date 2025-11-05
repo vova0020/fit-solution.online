@@ -425,9 +425,9 @@ app.use((error, req, res, next) => {
 });
 
 // Запуск сервера
-// app.listen(PORT, () => {
-//     console.log(`Сервер запущен на порту ${PORT}`);
-//     console.log(`Публичный сайт: http://localhost:${PORT}/`);
-//     console.log(`Админ-панель: http://localhost:${PORT}/admin`);
-//     console.log(`Логин: admin, Пароль: admin123`);
-// });
+app.listen(PORT, () => {
+    console.log(`Сервер запущен на порту ${PORT}`);
+    // console.log(`Публичный сайт: http://localhost:${PORT}/`);
+    // console.log(`Админ-панель: http://localhost:${PORT}/admin`);
+    // console.log(`Логин: admin, Пароль: admin123`);
+});
