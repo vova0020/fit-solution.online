@@ -7,7 +7,7 @@ const cors = require('cors');
 const multer = require('multer');
 
 const app = express();
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 3000;
 
 // Настройка multer для загрузки файлов
 const storage = multer.diskStorage({
@@ -425,9 +425,9 @@ app.use((error, req, res, next) => {
 });
 
 // Запуск сервера
-app.listen(PORT, () => {
-    console.log(`Сервер запущен на порту ${PORT}`);
-    console.log(`Публичный сайт: http://localhost:${PORT}/`);
-    console.log(`Админ-панель: http://localhost:${PORT}/admin`);
-    console.log(`Логин: admin, Пароль: admin123`);
-});
+// app.listen(PORT, () => {
+//     console.log(`Сервер запущен на порту ${PORT}`);
+//     console.log(`Публичный сайт: http://localhost:${PORT}/`);
+//     console.log(`Админ-панель: http://localhost:${PORT}/admin`);
+//     console.log(`Логин: admin, Пароль: admin123`);
+// });
