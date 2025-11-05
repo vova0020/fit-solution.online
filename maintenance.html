@@ -35,14 +35,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow-x: hidden;
+            padding: 10px;
         }
 
         .maintenance-container {
             text-align: center;
             color: var(--white);
-            max-width: 600px;
-            padding: 40px 20px;
+            max-width: 90vw;
+            width: 100%;
+            padding: 20px 15px;
             position: relative;
             z-index: 2;
         }
@@ -187,11 +189,12 @@
         /* Адаптивность */
         @media (max-width: 768px) {
             .maintenance-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
+                word-wrap: break-word;
             }
             
             .maintenance-subtitle {
-                font-size: 1.1rem;
+                font-size: 1rem;
             }
             
             .maintenance-icon {
@@ -199,25 +202,37 @@
             }
             
             .logo img {
-                height: 60px;
+                height: 50px;
             }
             
             .maintenance-container {
-                padding: 30px 15px;
+                max-width: 95vw;
+                padding: 20px 10px;
+            }
+            
+            .maintenance-message {
+                font-size: 0.9rem;
+                word-wrap: break-word;
             }
         }
 
         @media (max-width: 480px) {
             .maintenance-title {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+                line-height: 1.2;
             }
             
             .maintenance-subtitle {
-                font-size: 1rem;
+                font-size: 0.9rem;
             }
             
             .maintenance-message {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                line-height: 1.5;
+            }
+            
+            .contact-info {
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -227,7 +242,8 @@
     
     <div class="maintenance-container">
         <div class="logo">
-            <img src="/images/LOGO_FIT-SOL.png" alt="FIT-MES Logo" onerror="this.style.display='none'">
+            <img src="/images/LOGO_FIT-SOL.png" alt="FIT-MES Logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div style="display:none; font-size:2rem; font-weight:700; color:white;">FIT-SOLUTION</div>
         </div>
         
         <div class="maintenance-icon">🔧</div>
