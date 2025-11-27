@@ -74,6 +74,20 @@ class AdminPanel {
         document.getElementById('cancelPartnerBtn').addEventListener('click', () => {
             this.hidePartnerForm();
         });
+
+        // Отзывы
+        document.getElementById('addReviewBtn').addEventListener('click', () => {
+            this.showReviewForm();
+        });
+
+        document.getElementById('reviewsForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.saveReview();
+        });
+
+        document.getElementById('cancelReviewBtn').addEventListener('click', () => {
+            this.hideReviewForm();
+        });
         
         // Обработчики загрузки изображений
         this.bindImageUploadEvents();
@@ -98,24 +112,52 @@ class AdminPanel {
     
     bindImageUploadEvents() {
         // Загрузка изображений для новостей
-        document.getElementById('newsImageFile').addEventListener('change', (e) => {
-            this.handleImageUpload(e, 'news');
-        });
+        const newsImageFile = document.getElementById('newsImageFile');
+        if (newsImageFile) {
+            newsImageFile.addEventListener('change', (e) => {
+                this.handleImageUpload(e, 'news');
+            });
+        }
         
         // Предварительный просмотр по URL для новостей
-        document.getElementById('newsImage').addEventListener('input', (e) => {
-            this.showImagePreview(e.target.value, 'newsPreviewImg', 'newsImagePreview');
-        });
+        const newsImage = document.getElementById('newsImage');
+        if (newsImage) {
+            newsImage.addEventListener('input', (e) => {
+                this.showImagePreview(e.target.value, 'newsPreviewImg', 'newsImagePreview');
+            });
+        }
         
         // Загрузка логотипов для партнеров
-        document.getElementById('partnerLogoFile').addEventListener('change', (e) => {
-            this.handleImageUpload(e, 'partners');
-        });
+        const partnerLogoFile = document.getElementById('partnerLogoFile');
+        if (partnerLogoFile) {
+            partnerLogoFile.addEventListener('change', (e) => {
+                this.handleImageUpload(e, 'partners');
+            });
+        }
         
         // Предварительный просмотр по URL для партнеров
-        document.getElementById('partnerLogo').addEventListener('input', (e) => {
-            this.showImagePreview(e.target.value, 'partnerPreviewImg', 'partnerLogoPreview');
-        });
+        const partnerLogo = document.getElementById('partnerLogo');
+        if (partnerLogo) {
+            partnerLogo.addEventListener('input', (e) => {
+                this.showImagePreview(e.target.value, 'partnerPreviewImg', 'partnerLogoPreview');
+            });
+        }
+        
+        // Загрузка изображений для отзывов
+        const reviewImageFile = document.getElementById('reviewImageFile');
+        if (reviewImageFile) {
+            reviewImageFile.addEventListener('change', (e) => {
+                this.handleImageUpload(e, 'reviews');
+            });
+        }
+        
+        // Предварительный просмотр по URL для отзывов
+        const reviewImage = document.getElementById('reviewImage');
+        if (reviewImage) {
+            reviewImage.addEventListener('input', (e) => {
+                this.showImagePreview(e.target.value, 'reviewPreviewImg', 'reviewImagePreview');
+            });
+        }
     }
 
     showLoginForm() {
@@ -189,6 +231,8 @@ class AdminPanel {
             await this.loadNews();
         } else if (this.currentSection === 'partners') {
             await this.loadPartners();
+        } else if (this.currentSection === 'reviews') {
+            await this.loadReviews();
         }
     }
 
@@ -571,9 +615,12 @@ class AdminPanel {
                 if (type === 'news') {
                     document.getElementById('newsImage').value = result.imageUrl;
                     this.showImagePreview(result.imageUrl, 'newsPreviewImg', 'newsImagePreview');
-                } else {
+                } else if (type === 'partners') {
                     document.getElementById('partnerLogo').value = result.imageUrl;
                     this.showImagePreview(result.imageUrl, 'partnerPreviewImg', 'partnerLogoPreview');
+                } else if (type === 'reviews') {
+                    document.getElementById('reviewImage').value = result.imageUrl;
+                    this.showImagePreview(result.imageUrl, 'reviewPreviewImg', 'reviewImagePreview');
                 }
                 
                 this.showNotification('Изображение успешно загружено', 'success');
@@ -587,11 +634,168 @@ class AdminPanel {
     }
     
     showImagePreview(imageUrl, imgId, containerId) {
-        if (imageUrl) {
-            document.getElementById(imgId).src = imageUrl;
-            document.getElementById(containerId).style.display = 'block';
+        const img = document.getElementById(imgId);
+        const container = document.getElementById(containerId);
+        
+        if (imageUrl && img && container) {
+            img.src = imageUrl;
+            container.style.display = 'block';
+        } else if (container) {
+            container.style.display = 'none';
+        }
+    }
+
+    async loadReviews() {
+        try {
+            const response = await fetch('/api/admin/reviews');
+            const reviews = await response.json();
+            this.renderReviewsList(reviews);
+        } catch (error) {
+            console.error('Ошибка загрузки отзывов:', error);
+            this.showNotification('Ошибка загрузки отзывов', 'error');
+        }
+    }
+
+    renderReviewsList(reviews) {
+        const container = document.getElementById('reviewsList');
+        
+        if (reviews.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: var(--text-light);">Отзывов пока нет</p>';
+            return;
+        }
+
+        container.innerHTML = reviews.map(item => `
+            <div class="list-item">
+                <div class="item-header ${item.imageUrl ? 'item-header-with-image' : ''}">
+                    ${item.imageUrl ? `<img src="${item.imageUrl}" alt="Отзыв" class="item-image">` : ''}
+                    <div>
+                        <div class="item-title">${this.escapeHtml(item.company)}</div>
+                        <div class="item-meta">Порядок: ${item.order || 'не указан'}</div>
+                    </div>
+                </div>
+                <div class="item-content">${this.escapeHtml(item.text.substring(0, 150))}${item.text.length > 150 ? '...' : ''}</div>
+                <div class="item-actions">
+                    <button class="edit-btn" onclick="adminPanel.editReview('${item.id}')">Редактировать</button>
+                    <button class="delete-btn" onclick="adminPanel.deleteReview('${item.id}')">Удалить</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    showReviewForm(reviewData = null) {
+        const form = document.getElementById('reviewsForm');
+        const submitBtn = document.getElementById('saveReviewBtn');
+        const formContainer = form.closest('.form-container');
+        
+        if (reviewData) {
+            document.getElementById('reviewId').value = reviewData.id;
+            document.getElementById('reviewCompany').value = reviewData.company;
+            document.getElementById('reviewText').value = reviewData.text;
+            document.getElementById('reviewImage').value = reviewData.imageUrl || '';
+            document.getElementById('reviewImageFile').value = '';
+            document.getElementById('reviewOrder').value = reviewData.order || '';
+            
+            this.showImagePreview(reviewData.imageUrl, 'reviewPreviewImg', 'reviewImagePreview');
+            
+            submitBtn.textContent = 'Обновить';
+            this.editingId = reviewData.id;
         } else {
-            document.getElementById(containerId).style.display = 'none';
+            form.reset();
+            document.getElementById('reviewId').value = '';
+            document.getElementById('reviewImagePreview').style.display = 'none';
+            submitBtn.textContent = 'Добавить';
+            this.editingId = null;
+        }
+        
+        form.style.display = 'block';
+        if (formContainer) formContainer.style.display = 'block';
+        document.getElementById('reviewCompany').focus();
+    }
+
+    hideReviewForm() {
+        document.getElementById('reviewsForm').style.display = 'none';
+        document.getElementById('reviewsForm').reset();
+        document.getElementById('reviewImagePreview').style.display = 'none';
+        this.editingId = null;
+    }
+
+    async saveReview() {
+        const company = document.getElementById('reviewCompany').value.trim();
+        const text = document.getElementById('reviewText').value.trim();
+        const imageUrl = document.getElementById('reviewImage').value.trim();
+        const order = document.getElementById('reviewOrder').value;
+
+        if (!company || !text) {
+            this.showNotification('Заполните все обязательные поля', 'error');
+            return;
+        }
+
+        const reviewData = { company, text, imageUrl };
+        if (order) reviewData.order = parseInt(order);
+
+        try {
+            let response;
+            if (this.editingId) {
+                response = await fetch(`/api/admin/reviews/${this.editingId}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(reviewData),
+                });
+            } else {
+                response = await fetch('/api/admin/reviews', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(reviewData),
+                });
+            }
+
+            if (response.ok) {
+                this.showNotification(this.editingId ? 'Отзыв обновлен' : 'Отзыв добавлен', 'success');
+                this.hideReviewForm();
+                this.loadReviews();
+            } else {
+                const error = await response.json();
+                this.showNotification(error.error || 'Ошибка сохранения', 'error');
+            }
+        } catch (error) {
+            console.error('Ошибка сохранения отзыва:', error);
+            this.showNotification('Ошибка соединения с сервером', 'error');
+        }
+    }
+
+    async editReview(id) {
+        try {
+            const response = await fetch('/api/admin/reviews');
+            const reviews = await response.json();
+            const reviewItem = reviews.find(item => item.id === id);
+            
+            if (reviewItem) {
+                this.showReviewForm(reviewItem);
+            }
+        } catch (error) {
+            console.error('Ошибка загрузки отзыва для редактирования:', error);
+        }
+    }
+
+    async deleteReview(id) {
+        if (!confirm('Вы уверены, что хотите удалить этот отзыв?')) {
+            return;
+        }
+
+        try {
+            const response = await fetch(`/api/admin/reviews/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                this.showNotification('Отзыв удален', 'success');
+                this.loadReviews();
+            } else {
+                this.showNotification('Ошибка удаления', 'error');
+            }
+        } catch (error) {
+            console.error('Ошибка удаления отзыва:', error);
+            this.showNotification('Ошибка соединения с сервером', 'error');
         }
     }
 

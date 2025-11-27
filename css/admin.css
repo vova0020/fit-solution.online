@@ -252,6 +252,10 @@ body {
     margin-bottom: 30px;
 }
 
+.form-container:has(.content-form[style*="display: none"]) {
+    display: none;
+}
+
 .content-form {
     display: grid;
     gap: 20px;

@@ -15,6 +15,7 @@ class ContentLoader {
             
             this.renderNews(data.news || []);
             this.renderPartners(data.partners || []);
+            this.renderReviews(data.reviews || []);
         } catch (error) {
             console.error('Ошибка загрузки контента:', error);
             this.showError();
@@ -85,6 +86,26 @@ class ContentLoader {
 
         // Привязываем обработчики для модальных окон партнеров
         this.bindPartnerModals(partners);
+    }
+
+    renderReviews(reviews) {
+        const reviewsContainer = document.querySelector('.reviews-grid');
+        if (!reviewsContainer) return;
+
+        if (reviews.length === 0) {
+            reviewsContainer.innerHTML = '<p style="text-align: center; color: var(--text-light);">Отзывов пока нет</p>';
+            return;
+        }
+
+        reviewsContainer.innerHTML = reviews.map(review => `
+            <div class="review-card">
+                ${review.imageUrl ? `<div class="review-image"><img src="${review.imageUrl}" alt="${this.escapeHtml(review.company)}"></div>` : ''}
+                <div class="review-header">
+                    <h3>${this.escapeHtml(review.company)}</h3>
+                </div>
+                <p>${this.escapeHtml(review.text)}</p>
+            </div>
+        `).join('');
     }
 
     bindNewsModals(news) {
@@ -189,6 +210,7 @@ class ContentLoader {
     showError() {
         const newsContainer = document.querySelector('.news-grid');
         const partnersContainer = document.querySelector('.partners-grid');
+        const reviewsContainer = document.querySelector('.reviews-grid');
         
         if (newsContainer) {
             newsContainer.innerHTML = '<p style="text-align: center; color: var(--danger-color);">Не удалось загрузить новости</p>';
@@ -196,6 +218,10 @@ class ContentLoader {
         
         if (partnersContainer) {
             partnersContainer.innerHTML = '<p style="text-align: center; color: var(--danger-color);">Не удалось загрузить партнеров</p>';
+        }
+        
+        if (reviewsContainer) {
+            reviewsContainer.innerHTML = '<p style="text-align: center; color: var(--danger-color);">Не удалось загрузить отзывы</p>';
         }
     }
 

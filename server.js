@@ -13,7 +13,14 @@ const PORT = process.env.PORT || 3000;
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         const uploadType = req.body.uploadType || 'news';
-        const dir = uploadType === 'partners' ? './images/Partners/' : './images/baner/';
+        let dir;
+        if (uploadType === 'partners') {
+            dir = './images/Partners/';
+        } else if (uploadType === 'reviews') {
+            dir = './images/reviews/';
+        } else {
+            dir = './images/baner/';
+        }
         
         // Создаем папку если не существует
         if (!fs.existsSync(dir)) {
@@ -87,7 +94,7 @@ const readContent = () => {
         return JSON.parse(data);
     } catch (error) {
         console.error('Ошибка чтения content.json:', error);
-        return { news: [], partners: [] };
+        return { news: [], partners: [], reviews: [] };
     }
 };
 
@@ -152,6 +159,9 @@ app.get('/api/content', (req, res) => {
     }
     if (content.partners) {
         content.partners.sort((a, b) => (a.order || 0) - (b.order || 0));
+    }
+    if (content.reviews) {
+        content.reviews.sort((a, b) => (a.order || 0) - (b.order || 0));
     }
     res.json(content);
 });
@@ -294,6 +304,108 @@ app.get('/api/admin/partners', checkAuth, (req, res) => {
     res.json(content.partners);
 });
 
+// Админ API для отзывов
+app.get('/api/admin/reviews', checkAuth, (req, res) => {
+    const content = readContent();
+    const reviews = content.reviews || [];
+    reviews.sort((a, b) => (a.order || 0) - (b.order || 0));
+    res.json(reviews);
+});
+
+app.post('/api/admin/reviews', checkAuth, (req, res) => {
+    const { company, text, imageUrl, order } = req.body;
+    
+    if (!company || !text) {
+        return res.status(400).json({ error: 'Компания и текст обязательны' });
+    }
+    
+    const content = readContent();
+    if (!content.reviews) content.reviews = [];
+    
+    const newOrder = reorderItems(content.reviews, order ? parseInt(order) : null);
+    
+    const newReview = {
+        id: 'review_' + Date.now(),
+        company,
+        text,
+        imageUrl: imageUrl || '',
+        order: newOrder
+    };
+    
+    content.reviews.push(newReview);
+    content.reviews.sort((a, b) => (a.order || 0) - (b.order || 0));
+    
+    if (writeContent(content)) {
+        res.json(newReview);
+    } else {
+        res.status(500).json({ error: 'Ошибка сохранения' });
+    }
+});
+
+app.put('/api/admin/reviews/:id', checkAuth, (req, res) => {
+    const { id } = req.params;
+    const { company, text, imageUrl, order } = req.body;
+    
+    if (!company || !text) {
+        return res.status(400).json({ error: 'Компания и текст обязательны' });
+    }
+    
+    const content = readContent();
+    if (!content.reviews) content.reviews = [];
+    
+    const reviewIndex = content.reviews.findIndex(item => item.id === id);
+    
+    if (reviewIndex === -1) {
+        return res.status(404).json({ error: 'Отзыв не найден' });
+    }
+    
+    const oldImageUrl = content.reviews[reviewIndex].imageUrl;
+    const newImageUrl = imageUrl || '';
+    
+    // Удаляем старое изображение, если оно изменилось
+    if (oldImageUrl && oldImageUrl !== newImageUrl && oldImageUrl.includes('/reviews/')) {
+        deleteImageFile(oldImageUrl);
+    }
+    
+    const newOrder = order !== undefined ? reorderItems(content.reviews, parseInt(order), id) : (content.reviews[reviewIndex].order || 0);
+    
+    content.reviews[reviewIndex] = {
+        ...content.reviews[reviewIndex],
+        company,
+        text,
+        imageUrl: newImageUrl,
+        order: newOrder
+    };
+    
+    content.reviews.sort((a, b) => (a.order || 0) - (b.order || 0));
+    
+    if (writeContent(content)) {
+        res.json(content.reviews[reviewIndex]);
+    } else {
+        res.status(500).json({ error: 'Ошибка сохранения' });
+    }
+});
+
+app.delete('/api/admin/reviews/:id', checkAuth, (req, res) => {
+    const { id } = req.params;
+    const content = readContent();
+    
+    if (!content.reviews) content.reviews = [];
+    
+    const reviewItem = content.reviews.find(item => item.id === id);
+    if (reviewItem && reviewItem.imageUrl) {
+        deleteImageFile(reviewItem.imageUrl);
+    }
+    
+    content.reviews = content.reviews.filter(item => item.id !== id);
+    
+    if (writeContent(content)) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ error: 'Ошибка сохранения' });
+    }
+});
+
 app.post('/api/admin/partners', checkAuth, (req, res) => {
     const { name, description, logoUrl, logoClass, websiteUrl, isClickable, order } = req.body;
     
@@ -396,9 +508,14 @@ app.post('/api/admin/upload', checkAuth, upload.single('image'), (req, res) => {
         }
         
         const uploadType = req.body.uploadType || 'news';
-        const relativePath = uploadType === 'partners' 
-            ? `/images/Partners/${req.file.filename}`
-            : `/images/baner/${req.file.filename}`;
+        let relativePath;
+        if (uploadType === 'partners') {
+            relativePath = `/images/Partners/${req.file.filename}`;
+        } else if (uploadType === 'reviews') {
+            relativePath = `/images/reviews/${req.file.filename}`;
+        } else {
+            relativePath = `/images/baner/${req.file.filename}`;
+        }
         
         res.json({ 
             success: true, 
