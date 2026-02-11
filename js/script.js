@@ -31,30 +31,42 @@ class ContentLoader {
             return;
         }
 
-        newsContainer.innerHTML = news.map(item => {
-            const date = new Date(item.eventDate || item.createdAt).toLocaleDateString('ru-RU', {
-                day: 'numeric',
-                month: 'short',
-                year: 'numeric'
-            });
+        // Создаем горизонтальный слайдер
+        newsContainer.innerHTML = `
+            <div class="news-slider-container">
+                <button class="news-slider-nav prev" id="newsSliderPrev">‹</button>
+                <div class="news-slider" id="newsSlider">
+                    <div class="news-slider-track">
+                        ${news.map(item => {
+                            const date = new Date(item.eventDate || item.createdAt).toLocaleDateString('ru-RU', {
+                                day: 'numeric',
+                                month: 'short',
+                                year: 'numeric'
+                            });
 
-            return `
-                <article class="news-card featured">
-                    <div class="news-image">
-                        ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${this.escapeHtml(item.title)}">` : ''}
-                        <div class="news-date">${date}</div>
+                            return `
+                                <article class="news-slider-item news-card">
+                                    <div class="news-image">
+                                        ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${this.escapeHtml(item.title)}" loading="lazy">` : ''}
+                                        <div class="news-date">${date}</div>
+                                    </div>
+                                    <div class="news-content">
+                                        <h3>${this.escapeHtml(item.title)}</h3>
+                                        <p>${this.escapeHtml(item.text)}</p>
+                                        <a href="#" class="news-link" data-news-id="${item.id}">Читать далее</a>
+                                    </div>
+                                </article>
+                            `;
+                        }).join('')}
                     </div>
-                    <div class="news-content">
-                        <h3>${this.escapeHtml(item.title)}</h3>
-                        <p>${this.escapeHtml(item.text)}</p>
-                        <a href="#" class="news-link" data-news-id="${item.id}">Читать далее</a>
-                    </div>
-                </article>
-            `;
-        }).join('');
+                </div>
+                <button class="news-slider-nav next" id="newsSliderNext">›</button>
+            </div>
+        `;
 
         // Привязываем обработчики для модальных окон новостей
         this.bindNewsModals(news);
+        this.initNewsSlider();
     }
 
     renderPartners(partners) {
@@ -229,6 +241,61 @@ class ContentLoader {
         const div = document.createElement('div');
         div.textContent = text;
         return div.innerHTML;
+    }
+
+    initNewsSlider() {
+        const slider = document.getElementById('newsSlider');
+        const prevBtn = document.getElementById('newsSliderPrev');
+        const nextBtn = document.getElementById('newsSliderNext');
+        
+        if (!slider || !prevBtn || !nextBtn) return;
+        
+        const scrollAmount = 430; // Ширина карточки + gap
+        
+        const updateButtons = () => {
+            prevBtn.disabled = slider.scrollLeft <= 0;
+            nextBtn.disabled = slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 10;
+        };
+        
+        prevBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            setTimeout(updateButtons, 300);
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            setTimeout(updateButtons, 300);
+        });
+        
+        slider.addEventListener('scroll', updateButtons);
+        updateButtons();
+        
+        // Touch поддержка
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+        });
+        
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
     }
 }
 

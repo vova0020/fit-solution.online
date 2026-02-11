@@ -153,9 +153,9 @@ app.get('/admin', (req, res) => {
 // Публичные API маршруты
 app.get('/api/content', (req, res) => {
     const content = readContent();
-    // Сортируем по порядку перед отправкой
+    // Фильтруем архивные новости и сортируем
     if (content.news) {
-        content.news.sort((a, b) => (a.order || 0) - (b.order || 0));
+        content.news = content.news.filter(item => !item.archived).sort((a, b) => (a.order || 0) - (b.order || 0));
     }
     if (content.partners) {
         content.partners.sort((a, b) => (a.order || 0) - (b.order || 0));
@@ -208,7 +208,7 @@ app.get('/api/admin/news', checkAuth, (req, res) => {
 });
 
 app.post('/api/admin/news', checkAuth, (req, res) => {
-    const { title, text, imageUrl, eventDate, order } = req.body;
+    const { title, text, imageUrl, eventDate, order, archived } = req.body;
     
     if (!title || !text) {
         return res.status(400).json({ error: 'Заголовок и текст обязательны' });
@@ -224,7 +224,8 @@ app.post('/api/admin/news', checkAuth, (req, res) => {
         title,
         text,
         imageUrl: imageUrl || '',
-        order: newOrder
+        order: newOrder,
+        archived: archived || false
     };
     
     content.news.push(newNews);
@@ -239,17 +240,27 @@ app.post('/api/admin/news', checkAuth, (req, res) => {
 
 app.put('/api/admin/news/:id', checkAuth, (req, res) => {
     const { id } = req.params;
-    const { title, text, imageUrl, eventDate, order } = req.body;
-    
-    if (!title || !text) {
-        return res.status(400).json({ error: 'Заголовок и текст обязательны' });
-    }
+    const { title, text, imageUrl, eventDate, order, archived } = req.body;
     
     const content = readContent();
     const newsIndex = content.news.findIndex(item => item.id === id);
     
     if (newsIndex === -1) {
         return res.status(404).json({ error: 'Новость не найдена' });
+    }
+    
+    // Если передан только archived, обновляем только его
+    if (archived !== undefined && !title && !text) {
+        content.news[newsIndex].archived = archived;
+        if (writeContent(content)) {
+            return res.json(content.news[newsIndex]);
+        } else {
+            return res.status(500).json({ error: 'Ошибка сохранения' });
+        }
+    }
+    
+    if (!title || !text) {
+        return res.status(400).json({ error: 'Заголовок и текст обязательны' });
     }
     
     const oldImageUrl = content.news[newsIndex].imageUrl;
@@ -268,7 +279,8 @@ app.put('/api/admin/news/:id', checkAuth, (req, res) => {
         text,
         imageUrl: newImageUrl,
         eventDate: eventDate || content.news[newsIndex].eventDate,
-        order: newOrder
+        order: newOrder,
+        archived: archived !== undefined ? archived : (content.news[newsIndex].archived || false)
     };
     
     content.news.sort((a, b) => (a.order || 0) - (b.order || 0));

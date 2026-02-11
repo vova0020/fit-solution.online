@@ -256,11 +256,11 @@ class AdminPanel {
         }
 
         container.innerHTML = news.map(item => `
-            <div class="list-item">
+            <div class="list-item ${item.archived ? 'archived-item' : ''}">
                 <div class="item-header ${item.imageUrl ? 'item-header-with-image' : ''}">
                     ${item.imageUrl ? `<img src="${item.imageUrl}" alt="Новость" class="item-image">` : ''}
                     <div>
-                        <div class="item-title">${this.escapeHtml(item.title)}</div>
+                        <div class="item-title">${this.escapeHtml(item.title)} ${item.archived ? '<span class="archive-badge">АРХИВ</span>' : ''}</div>
                         <div class="item-date">${new Date(item.eventDate || item.createdAt).toLocaleDateString('ru-RU')}</div>
                         <div class="item-meta">Порядок: ${item.order || 'не указан'}</div>
                     </div>
@@ -268,6 +268,10 @@ class AdminPanel {
                 <div class="item-content">${this.escapeHtml(item.text.substring(0, 150))}${item.text.length > 150 ? '...' : ''}</div>
                 <div class="item-actions">
                     <button class="edit-btn" onclick="adminPanel.editNews('${item.id}')">Редактировать</button>
+                    ${item.archived ? 
+                        `<button class="restore-btn" onclick="adminPanel.restoreNews('${item.id}')">Восстановить</button>` : 
+                        `<button class="archive-btn" onclick="adminPanel.archiveNews('${item.id}')">В архив</button>`
+                    }
                     <button class="delete-btn" onclick="adminPanel.deleteNews('${item.id}')">Удалить</button>
                 </div>
             </div>
@@ -329,6 +333,7 @@ class AdminPanel {
             document.getElementById('newsImageFile').value = '';
             document.getElementById('newsDate').value = newsData.eventDate || new Date().toISOString().split('T')[0];
             document.getElementById('newsOrder').value = newsData.order || '';
+            document.getElementById('newsArchived').checked = newsData.archived || false;
             
             // Показываем предварительный просмотр
             this.showImagePreview(newsData.imageUrl, 'newsPreviewImg', 'newsImagePreview');
@@ -341,6 +346,7 @@ class AdminPanel {
             document.getElementById('newsId').value = '';
             document.getElementById('newsDate').value = new Date().toISOString().split('T')[0];
             document.getElementById('newsImagePreview').style.display = 'none';
+            document.getElementById('newsArchived').checked = false;
             submitBtn.textContent = 'Добавить';
             this.editingId = null;
         }
@@ -362,13 +368,14 @@ class AdminPanel {
         const imageUrl = document.getElementById('newsImage').value.trim();
         const eventDate = document.getElementById('newsDate').value;
         const order = document.getElementById('newsOrder').value;
+        const archived = document.getElementById('newsArchived').checked;
 
         if (!title || !text || !eventDate) {
             this.showNotification('Заполните все обязательные поля', 'error');
             return;
         }
 
-        const newsData = { title, text, imageUrl, eventDate };
+        const newsData = { title, text, imageUrl, eventDate, archived };
         if (order) newsData.order = parseInt(order);
 
         try {
@@ -795,6 +802,46 @@ class AdminPanel {
             }
         } catch (error) {
             console.error('Ошибка удаления отзыва:', error);
+            this.showNotification('Ошибка соединения с сервером', 'error');
+        }
+    }
+
+    async archiveNews(id) {
+        try {
+            const response = await fetch(`/api/admin/news/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ archived: true }),
+            });
+
+            if (response.ok) {
+                this.showNotification('Новость отправлена в архив', 'success');
+                this.loadNews();
+            } else {
+                this.showNotification('Ошибка архивирования', 'error');
+            }
+        } catch (error) {
+            console.error('Ошибка архивирования:', error);
+            this.showNotification('Ошибка соединения с сервером', 'error');
+        }
+    }
+
+    async restoreNews(id) {
+        try {
+            const response = await fetch(`/api/admin/news/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ archived: false }),
+            });
+
+            if (response.ok) {
+                this.showNotification('Новость восстановлена из архива', 'success');
+                this.loadNews();
+            } else {
+                this.showNotification('Ошибка восстановления', 'error');
+            }
+        } catch (error) {
+            console.error('Ошибка восстановления:', error);
             this.showNotification('Ошибка соединения с сервером', 'error');
         }
     }

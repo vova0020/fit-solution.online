@@ -2406,3 +2406,121 @@ nav ul li a:focus-visible {
         padding: 5px 12px;
     }
 }
+
+
+/* Horizontal News Slider */
+.news-slider-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 60px;
+}
+
+.news-slider {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.news-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.news-slider-track {
+    display: flex;
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.news-slider-item {
+    flex: 0 0 400px;
+    background: var(--white);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(44, 62, 80, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.news-slider-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px rgba(44, 62, 80, 0.2);
+}
+
+.news-slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.3);
+}
+
+.news-slider-nav:hover {
+    background: var(--accent-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.news-slider-nav.prev {
+    left: 0;
+}
+
+.news-slider-nav.next {
+    right: 0;
+}
+
+.news-slider-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.news-slider-nav:disabled:hover {
+    background: var(--primary-color);
+    transform: translateY(-50%);
+}
+
+@media (max-width: 768px) {
+    .news-slider-container {
+        padding: 0 50px;
+    }
+    
+    .news-slider-item {
+        flex: 0 0 320px;
+    }
+    
+    .news-slider-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .news-slider-container {
+        padding: 0 40px;
+    }
+    
+    .news-slider-item {
+        flex: 0 0 280px;
+    }
+    
+    .news-slider-nav {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+}
