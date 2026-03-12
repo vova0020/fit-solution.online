@@ -879,3 +879,71 @@ document.addEventListener('DOMContentLoaded', initCookieNotice);
 // ========================
 // Модальные окна новостей (создаются динамически)
 // ========================
+
+
+// ========================
+// Pricing Cards Slider
+// ========================
+function initPricingSlider() {
+    const slider = document.getElementById('pricingSlider');
+    const prevBtn = document.getElementById('pricingSliderPrev');
+    const nextBtn = document.getElementById('pricingSliderNext');
+    
+    if (!slider || !prevBtn || !nextBtn) return;
+    
+    const scrollToNextCard = () => {
+        const cards = slider.querySelectorAll('.pricing-card');
+        const scrollLeft = slider.scrollLeft;
+        
+        for (let i = 0; i < cards.length; i++) {
+            const card = cards[i];
+            const cardLeft = card.offsetLeft - slider.offsetLeft;
+            
+            if (cardLeft > scrollLeft + 10) {
+                slider.scrollTo({ left: cardLeft, behavior: 'smooth' });
+                return;
+            }
+        }
+    };
+    
+    const scrollToPrevCard = () => {
+        const cards = slider.querySelectorAll('.pricing-card');
+        const scrollLeft = slider.scrollLeft;
+        
+        for (let i = cards.length - 1; i >= 0; i--) {
+            const card = cards[i];
+            const cardLeft = card.offsetLeft - slider.offsetLeft;
+            
+            if (cardLeft < scrollLeft - 10) {
+                slider.scrollTo({ left: cardLeft, behavior: 'smooth' });
+                return;
+            }
+        }
+    };
+    
+    const updateButtons = () => {
+        prevBtn.disabled = slider.scrollLeft <= 0;
+        nextBtn.disabled = slider.scrollLeft >= slider.scrollWidth - slider.clientWidth - 10;
+    };
+    
+    prevBtn.addEventListener('click', () => {
+        scrollToPrevCard();
+        setTimeout(updateButtons, 300);
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        scrollToNextCard();
+        setTimeout(updateButtons, 300);
+    });
+    
+    slider.addEventListener('scroll', updateButtons);
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+}
+
+// Инициализируем pricing slider после загрузки DOM
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initPricingSlider);
+} else {
+    initPricingSlider();
+}

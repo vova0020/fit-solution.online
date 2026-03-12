@@ -346,104 +346,110 @@
             <!-- Versions Cards -->
             <h3 style="color: var(--primary-color); margin: 50px 0 30px; font-size: 1.8rem;">Выберите свою версию:</h3>
             <div class="pricing-cards">
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <h4>FIT-MES-LITE</h4>
-                        <div class="pricing-card-price">1 000 000 ₽</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <p class="pricing-card-desc">Базовое решение для индивидуального производства</p>
-                        <ul class="pricing-card-features">
-                            <li>Получение информации о заказах из CAD-систем («Базис» или др.) через Excel</li>
-                            <li>Справочник основных материалов</li>
-                            <li>Назначение производственных маршрутов на станки и участки технологом</li>
-                            <li>Авторизация производственного персонала на станках и участках</li>
-                            <li>Передача производственных заданий на станки и участки мастером</li>
-                            <li>Адресное хранение внутри производства (без визуала)</li>
-                            <li>Контроль прохождения заказов через производство</li>
-                            <li>Выдача информации из системы о произведенных деталях/упаковках в «мастер-систему», через Excel</li>
-                            <li>Аналитика по выработке на станках и участках</li>
-                            <li>Аналитика загрузки оборудования</li>
-                            <li><strong>До 10 производственных станков и участков</strong></li>
-                        </ul>
+                <button class="pricing-cards-nav prev" id="pricingSliderPrev">‹</button>
+                <div class="pricing-cards-slider" id="pricingSlider">
+                    <div class="pricing-cards-track">
+                        <div class="pricing-card">
+                            <div class="pricing-card-header">
+                                <h4>FIT-MES-LITE</h4>
+                                <div class="pricing-card-price">1 000 000 ₽</div>
+                            </div>
+                            <div class="pricing-card-body">
+                                <p class="pricing-card-desc">Базовое решение для индивидуального производства</p>
+                                <ul class="pricing-card-features">
+                                    <li>Получение информации о заказах из CAD-систем («Базис» или др.) через Excel</li>
+                                    <li>Справочник основных материалов</li>
+                                    <li>Назначение производственных маршрутов на станки и участки технологом</li>
+                                    <li>Авторизация производственного персонала на станках и участках</li>
+                                    <li>Передача производственных заданий на станки и участки мастером</li>
+                                    <li>Адресное хранение внутри производства (без визуала)</li>
+                                    <li>Контроль прохождения заказов через производство</li>
+                                    <li>Выдача информации из системы о произведенных деталях/упаковках в «мастер-систему», через Excel</li>
+                                    <li>Аналитика по выработке на станках и участках</li>
+                                    <li>Аналитика загрузки оборудования</li>
+                                    <li><strong>До 10 производственных станков и участков</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="pricing-card">
+                            <div class="pricing-card-header">
+                                <h4>FIT-MES-BASE</h4>
+                                <div class="pricing-card-price">1 500 000 ₽</div>
+                            </div>
+                            <div class="pricing-card-body">
+                                <p class="pricing-card-desc">Базовое решение для серийного производства</p>
+                                <ul class="pricing-card-features">
+                                    <li>Получение информации о заказах из «мастер-системы» («1С», «Базис» или других систем) через Excel</li>
+                                    <li>Справочник основных материалов</li>
+                                    <li>Справочник изделий и компонентов, упаковок</li>
+                                    <li>Назначение производственных маршрутов на станки и участки технологом</li>
+                                    <li>Прогноз сроков готовности заказов и контроль загрузки станков и участков</li>
+                                    <li>Авторизация производственного персонала на станках и участках</li>
+                                    <li>Передача производственных заданий на станки и участки мастером</li>
+                                    <li>Адресное хранение внутри производства (без визуала)</li>
+                                    <li>Поэтапный контроль прохождения заказов через производство</li>
+                                    <li>Выдача информации из системы о произведенных деталях/упаковках в «мастер-систему», через Excel</li>
+                                    <li>Аналитика по выработке на станках и участках</li>
+                                    <li><strong>До 15 производственных станков и участков</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="pricing-card">
+                            <div class="pricing-card-header">
+                                <h4>FIT-MES-OPTI</h4>
+                                <div class="pricing-card-price">2 000 000 ₽</div>
+                            </div>
+                            <div class="pricing-card-body">
+                                <p class="pricing-card-desc">Продвинутое решение для индивидуального производства</p>
+                                <ul class="pricing-card-features">
+                                    <li>Всё из FIT-MES-LITE +</li>
+                                    <li>Дополнительные инструменты информационного обмена между системами на входе и выходе (REST API, XML)</li>
+                                    <li>Прогноз сроков готовности заказов</li>
+                                    <li>Автоматизация процесса назначения производственных маршрутов</li>
+                                    <li>Процесс перевыпуска производственного брака</li>
+                                    <li>Адресное хранение внутри производства (визуализация)</li>
+                                    <li><strong>До 20 производственных станков и участков</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="pricing-card featured">
+                            <div class="pricing-badge">Популярный</div>
+                            <div class="pricing-card-header">
+                                <h4>FIT-MES-STANDART</h4>
+                                <div class="pricing-card-price">2 500 000 ₽</div>
+                            </div>
+                            <div class="pricing-card-body">
+                                <p class="pricing-card-desc">Продвинутое решение для серийного производства</p>
+                                <ul class="pricing-card-features">
+                                    <li>Всё из FIT-MES-BASE +</li>
+                                    <li>Дополнительные инструменты информационного обмена между системами на входе и выходе (REST API, XML)</li>
+                                    <li>Автоматизация процесса назначения производственных маршрутов</li>
+                                    <li>Процесс перевыпуска производственного брака</li>
+                                    <li>База чертежей на детали и схем послойной укладки готовых изделий</li>
+                                    <li>Адресное хранение внутри производства (визуализация)</li>
+                                    <li><strong>До 25 производственных станков и участков</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="pricing-card">
+                            <div class="pricing-card-header">
+                                <h4>FIT-MES-PRO</h4>
+                                <div class="pricing-card-price">3 500 000 ₽</div>
+                            </div>
+                            <div class="pricing-card-body">
+                                <p class="pricing-card-desc">Профессиональное решение для индивидуального и серийного производства</p>
+                                <ul class="pricing-card-features">
+                                    <li>Всё из FIT-MES-STANDART / FIT-MES-OPTI +</li>
+                                    <li>Возможность организации управления индивидуальным и серийным потоками в рамках одной системы</li>
+                                    <li>Процесс управления внешними рекламациями</li>
+                                    <li>Неограниченное подключение производственных станков и участков</li>
+                                    <li>Возможность дальнейшего подключения дополнительных модулей: FIT-MES-PLAN, FIT-MES-SERVICE, FIT-MES-SALARY и других</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <h4>FIT-MES-BASE</h4>
-                        <div class="pricing-card-price">1 500 000 ₽</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <p class="pricing-card-desc">Базовое решение для серийного производства</p>
-                        <ul class="pricing-card-features">
-                            <li>Получение информации о заказах из «мастер-системы» («1С», «Базис» или других систем) через Excel</li>
-                            <li>Справочник основных материалов</li>
-                            <li>Справочник изделий и компонентов, упаковок</li>
-                            <li>Назначение производственных маршрутов на станки и участки технологом</li>
-                            <li>Прогноз сроков готовности заказов и контроль загрузки станков и участков</li>
-                            <li>Авторизация производственного персонала на станках и участках</li>
-                            <li>Передача производственных заданий на станки и участки мастером</li>
-                            <li>Адресное хранение внутри производства (без визуала)</li>
-                            <li>Поэтапный контроль прохождения заказов через производство</li>
-                            <li>Выдача информации из системы о произведенных деталях/упаковках в «мастер-систему», через Excel</li>
-                            <li>Аналитика по выработке на станках и участках</li>
-                            <li><strong>До 15 производственных станков и участков</strong></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <h4>FIT-MES-OPTI</h4>
-                        <div class="pricing-card-price">2 000 000 ₽</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <p class="pricing-card-desc">Продвинутое решение для индивидуального производства</p>
-                        <ul class="pricing-card-features">
-                            <li>Всё из FIT-MES-LITE +</li>
-                            <li>Дополнительные инструменты информационного обмена между системами на входе и выходе (REST API, XML)</li>
-                            <li>Прогноз сроков готовности заказов</li>
-                            <li>Автоматизация процесса назначения производственных маршрутов</li>
-                            <li>Процесс перевыпуска производственного брака</li>
-                            <li>Адресное хранение внутри производства (визуализация)</li>
-                            <li><strong>До 20 производственных станков и участков</strong></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="pricing-card featured">
-                    <div class="pricing-badge">Популярный</div>
-                    <div class="pricing-card-header">
-                        <h4>FIT-MES-STANDART</h4>
-                        <div class="pricing-card-price">2 500 000 ₽</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <p class="pricing-card-desc">Продвинутое решение для серийного производства</p>
-                        <ul class="pricing-card-features">
-                            <li>Всё из FIT-MES-BASE +</li>
-                            <li>Дополнительные инструменты информационного обмена между системами на входе и выходе (REST API, XML)</li>
-                            <li>Автоматизация процесса назначения производственных маршрутов</li>
-                            <li>Процесс перевыпуска производственного брака</li>
-                            <li>База чертежей на детали и схем послойной укладки готовых изделий</li>
-                            <li>Адресное хранение внутри производства (визуализация)</li>
-                            <li><strong>До 25 производственных станков и участков</strong></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="pricing-card">
-                    <div class="pricing-card-header">
-                        <h4>FIT-MES-PRO</h4>
-                        <div class="pricing-card-price">3 500 000 ₽</div>
-                    </div>
-                    <div class="pricing-card-body">
-                        <p class="pricing-card-desc">Профессиональное решение для индивидуального и серийного производства</p>
-                        <ul class="pricing-card-features">
-                            <li>Всё из FIT-MES-STANDART / FIT-MES-OPTI +</li>
-                            <li>Возможность организации управления индивидуальным и серийным потоками в рамках одной системы</li>
-                            <li>Процесс управления внешними рекламациями</li>
-                            <li>Неограниченное подключение производственных станков и участков</li>
-                            <li>Возможность дальнейшего подключения дополнительных модулей: FIT-MES-PLAN, FIT-MES-SERVICE, FIT-MES-SALARY и других</li>
-                        </ul>
-                    </div>
-                </div>
+                <button class="pricing-cards-nav next" id="pricingSliderNext">›</button>
             </div>
 
             <h3 style="color: var(--primary-color); margin: 50px 0 30px; font-size: 1.8rem;">Почему мы?</h3>
