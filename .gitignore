@@ -1,5 +1,7 @@
 # Конфигурационные файлы
 # config.json
+ecosystem.config.js
+/images/baner
 
 # Node.js
 node_modules/
