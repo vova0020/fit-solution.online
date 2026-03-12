@@ -250,7 +250,38 @@ class ContentLoader {
         
         if (!slider || !prevBtn || !nextBtn) return;
         
-        const scrollAmount = 430; // Ширина карточки + gap
+        const scrollToNextCard = () => {
+            const cards = slider.querySelectorAll('.news-slider-item');
+            const scrollLeft = slider.scrollLeft;
+            const containerWidth = slider.clientWidth;
+            
+            // Находим следующую карточку
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                const cardLeft = card.offsetLeft - slider.offsetLeft;
+                
+                if (cardLeft > scrollLeft + 10) {
+                    slider.scrollTo({ left: cardLeft, behavior: 'smooth' });
+                    return;
+                }
+            }
+        };
+        
+        const scrollToPrevCard = () => {
+            const cards = slider.querySelectorAll('.news-slider-item');
+            const scrollLeft = slider.scrollLeft;
+            
+            // Находим предыдущую карточку
+            for (let i = cards.length - 1; i >= 0; i--) {
+                const card = cards[i];
+                const cardLeft = card.offsetLeft - slider.offsetLeft;
+                
+                if (cardLeft < scrollLeft - 10) {
+                    slider.scrollTo({ left: cardLeft, behavior: 'smooth' });
+                    return;
+                }
+            }
+        };
         
         const updateButtons = () => {
             prevBtn.disabled = slider.scrollLeft <= 0;
@@ -258,16 +289,17 @@ class ContentLoader {
         };
         
         prevBtn.addEventListener('click', () => {
-            slider.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            scrollToPrevCard();
             setTimeout(updateButtons, 300);
         });
         
         nextBtn.addEventListener('click', () => {
-            slider.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            scrollToNextCard();
             setTimeout(updateButtons, 300);
         });
         
         slider.addEventListener('scroll', updateButtons);
+        window.addEventListener('resize', updateButtons);
         updateButtons();
         
         // Touch поддержка
