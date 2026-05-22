@@ -239,112 +239,10 @@
                 </div>
             </div>
 
-            <!-- Versions Comparison Table -->
-            <!-- <h3 style="color: var(--primary-color); margin: 50px 0 30px; font-size: 1.8rem;">Сравнение версий:</h3>
-            <div class="versions-comparison">
-                <div class="comparison-table">
-                    <div class="comparison-header">
-                        <div class="header-cell empty"></div>
-                        <div class="header-cell">BASIC</div>
-                        <div class="header-cell featured">STANDART</div>
-                        <div class="header-cell">PRO</div>
-                    </div>
-                    
-                    <div class="comparison-row price-row">
-                        <div class="feature-name">Стоимость</div>
-                        <div class="feature-value"><strong>1 500 000 ₽</strong></div>
-                        <div class="feature-value featured"><strong>2 500 000 ₽</strong></div>
-                        <div class="feature-value"><strong>3 000 000 ₽</strong></div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Получение информации о заказах</div>
-                        <div class="feature-value">Excel из «1С», «Базис»</div>
-                        <div class="feature-value featured">Excel + REST API/XML</div>
-                        <div class="feature-value">Excel + REST API/XML</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Назначение маршрутов</div>
-                        <div class="feature-value">Технологом вручную</div>
-                        <div class="feature-value featured">Автоматизация процесса</div>
-                        <div class="feature-value">Автоматизация процесса</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Передача производственных заданий мастером</div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                        <div class="feature-value featured"><span class="check">✓</span></div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Выдача информации о деталях</div>
-                        <div class="feature-value">Excel</div>
-                        <div class="feature-value featured">Excel + API/XML</div>
-                        <div class="feature-value">Excel + API/XML</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Прогноз сроков готовности</div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                        <div class="feature-value featured"><span class="check">✓</span></div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Авторизация персонала</div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                        <div class="feature-value featured"><span class="check">✓</span></div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Адресное хранение</div>
-                        <div class="feature-value">Без визуализации</div>
-                        <div class="feature-value featured">Без визуализации</div>
-                        <div class="feature-value">С визуализацией</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Перевыпуск брака</div>
-                        <div class="feature-value"><span class="cross">—</span></div>
-                        <div class="feature-value featured"><span class="check">✓</span></div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">База чертежей и схем</div>
-                        <div class="feature-value"><span class="cross">—</span></div>
-                        <div class="feature-value featured"><span class="check">✓</span></div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Управление рекламациями</div>
-                        <div class="feature-value"><span class="cross">—</span></div>
-                        <div class="feature-value featured"><span class="cross">—</span></div>
-                        <div class="feature-value"><span class="check">✓</span></div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Количество станков</div>
-                        <div class="feature-value">До 10</div>
-                        <div class="feature-value featured">До 30</div>
-                        <div class="feature-value">Неограниченно</div>
-                    </div>
-                    
-                    <div class="comparison-row">
-                        <div class="feature-name">Дополнительные модули</div>
-                        <div class="feature-value"><span class="cross">—</span></div>
-                        <div class="feature-value featured"><span class="cross">—</span></div>
-                        <div class="feature-value">PLAN, SERVICE, SALARY</div>
-                    </div>
-                </div>
-            </div> -->
+           
 
             <!-- Versions Cards -->
-            <h3 style="color: var(--primary-color); margin: 50px 0 30px; font-size: 1.8rem;">Выберите свою версию:</h3>
+            <h3 style="color: var(--primary-color); margin: 50px 0 30px; font-size: 1.8rem;">Выберите свою версию:<span style="color: red;">*</span></h3>
             <div class="pricing-cards">
                 <button class="pricing-cards-nav prev" id="pricingSliderPrev">‹</button>
                 <div class="pricing-cards-slider" id="pricingSlider">
@@ -451,6 +349,10 @@
                 </div>
                 <button class="pricing-cards-nav next" id="pricingSliderNext">›</button>
             </div>
+
+            <p style="text-align: center; margin-top: 30px; font-size: 1.1rem; color: var(--text-light);">
+                <span style="color: red;">*</span> Стоимость программного обеспечения FIT-MES указана для типовых конфигураций. Актуальная стоимость предоставления лицензии определяется в зависимости от выбранной версии программного обеспечения и состава поставки.
+            </p>
 
             <h3 style="color: var(--primary-color); margin: 50px 0 30px; font-size: 1.8rem;">Почему мы?</h3>
             <div class="cards-grid">
@@ -686,7 +588,7 @@
     <!-- Footer -->
     <footer role="contentinfo">
         <div class="container">
-            <p>&copy; 2025 FIT-SOLUTION. Все права защищены.</p>
+            <p>&copy; 2025-2026 FIT-SOLUTION. Все права защищены.</p>
         </div>
     </footer>
 
